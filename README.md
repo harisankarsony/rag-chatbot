@@ -46,7 +46,7 @@ sequenceDiagram
 
     S->>FC: crawlUrl(targetSite)
     FC-->>S: Array of pages (markdown + metadata)
-    
+
     loop For each page
         S->>TS: splitText(page.markdown)
         TS-->>S: Array of chunks
@@ -61,12 +61,12 @@ sequenceDiagram
     UV-->>S: ✅ Indexed
 ```
 
-| Step | Tool | Details |
-|------|------|---------|
-| **Scrape** | Firecrawl | Crawl target site, get clean markdown per page |
-| **Chunk** | `RecursiveCharacterTextSplitter` | ~500-1000 chars per chunk, ~200 char overlap |
-| **Embed** | Gemini `text-embedding-004` | 768-dimension vectors (free tier) |
-| **Store** | Upstash Vector | REST-based, serverless, stores vector + metadata |
+| Step       | Tool                             | Details                                          |
+| ---------- | -------------------------------- | ------------------------------------------------ |
+| **Scrape** | Firecrawl                        | Crawl target site, get clean markdown per page   |
+| **Chunk**  | `RecursiveCharacterTextSplitter` | ~500-1000 chars per chunk, ~200 char overlap     |
+| **Embed**  | Gemini `text-embedding-004`      | 768-dimension vectors (free tier)                |
+| **Store**  | Upstash Vector                   | REST-based, serverless, stores vector + metadata |
 
 > [!TIP]
 > Store **source URL** and **chunk text** as metadata in Upstash so you can display sources alongside answers.
@@ -162,6 +162,7 @@ FIRECRAWL_API_KEY=your_firecrawl_api_key
 ### 2. API Route (`/api/chat/route.ts`)
 
 Responsibilities:
+
 1. Extract the latest user message from the conversation
 2. Embed it using Gemini's embedding model
 3. Query Upstash Vector for the top-K similar chunks
@@ -172,6 +173,7 @@ Responsibilities:
 ### 3. Chat UI
 
 Uses `useChat()` hook from Vercel AI SDK — handles:
+
 - Message state management
 - Streaming display
 - Auto-scroll
@@ -181,6 +183,7 @@ Uses `useChat()` hook from Vercel AI SDK — handles:
 ### 4. Ingestion Script (`scripts/ingest.ts`)
 
 Run locally with `npx tsx scripts/ingest.ts`:
+
 1. Crawl target URL with Firecrawl
 2. Split each page's markdown into chunks
 3. Generate embeddings for each chunk (batched)
@@ -209,18 +212,18 @@ Run locally with `npx tsx scripts/ingest.ts`:
 
 ## Tech Stack Summary
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Frontend** | Next.js (App Router) + React | Chat UI with SSR |
-| **Styling** | Tailwind CSS + shadcn/ui | Responsive, polished UI |
-| **Chat Hook** | Vercel AI SDK (`useChat`) | Client-side streaming + state |
-| **API** | Next.js Route Handlers | Serverless backend |
-| **LLM** | Gemini 2.0 Flash | Answer generation |
-| **Embeddings** | Gemini `text-embedding-004` | Text → vector conversion |
-| **Vector DB** | Upstash Vector | Serverless similarity search |
-| **Scraping** | Firecrawl | Website → clean markdown |
-| **Chunking** | LangChain `RecursiveCharacterTextSplitter` | Split text for embedding |
-| **Hosting** | Vercel (Hobby) | Free serverless deployment |
+| Layer          | Technology                                 | Purpose                       |
+| -------------- | ------------------------------------------ | ----------------------------- |
+| **Frontend**   | Next.js (App Router) + React               | Chat UI with SSR              |
+| **Styling**    | Tailwind CSS + shadcn/ui                   | Responsive, polished UI       |
+| **Chat Hook**  | Vercel AI SDK (`useChat`)                  | Client-side streaming + state |
+| **API**        | Next.js Route Handlers                     | Serverless backend            |
+| **LLM**        | Gemini 2.0 Flash                           | Answer generation             |
+| **Embeddings** | Gemini `text-embedding-004`                | Text → vector conversion      |
+| **Vector DB**  | Upstash Vector                             | Serverless similarity search  |
+| **Scraping**   | Firecrawl                                  | Website → clean markdown      |
+| **Chunking**   | LangChain `RecursiveCharacterTextSplitter` | Split text for embedding      |
+| **Hosting**    | Vercel (Hobby)                             | Free serverless deployment    |
 
 ---
 
@@ -271,14 +274,14 @@ User types "How does X work?"
 
 ## Key Design Decisions
 
-| Decision | Rationale |
-|----------|-----------|
-| **Ingestion runs locally** | Avoids Vercel function size/time limits; Firecrawl + embedding is a long process |
-| **Chunk size ~800 chars, overlap ~200** | Balances context richness vs. embedding quality |
-| **Top-K = 5** | Good starting point; tune based on answer quality |
-| **Metadata includes chunk text** | Avoids a separate database — Upstash stores everything |
-| **Streaming responses** | Much better UX — user sees tokens immediately |
-| **App Router (not Pages)** | Modern Next.js pattern, better for Route Handlers |
+| Decision                                | Rationale                                                                        |
+| --------------------------------------- | -------------------------------------------------------------------------------- |
+| **Ingestion runs locally**              | Avoids Vercel function size/time limits; Firecrawl + embedding is a long process |
+| **Chunk size ~800 chars, overlap ~200** | Balances context richness vs. embedding quality                                  |
+| **Top-K = 5**                           | Good starting point; tune based on answer quality                                |
+| **Metadata includes chunk text**        | Avoids a separate database — Upstash stores everything                           |
+| **Streaming responses**                 | Much better UX — user sees tokens immediately                                    |
+| **App Router (not Pages)**              | Modern Next.js pattern, better for Route Handlers                                |
 
 > [!IMPORTANT]
 > **Upstash Vector free tier supports 10K vectors.** For a typical documentation site, this is plenty. If you're scraping a very large site, you may need to be selective about which pages to index.
@@ -310,13 +313,13 @@ flowchart LR
 
 Build a fully functional chat interface — no AI yet, just the shell.
 
-| Day | Task | Hours | Details |
-|-----|------|-------|---------|
-| **D1** | Project scaffold | 3 | Initialize Next.js (App Router, TypeScript, Tailwind), install shadcn/ui, configure project structure, set up Git repo |
-| **D2** | Chat layout | 4 | Build `chat-container.tsx`, `message-list.tsx`, `message-bubble.tsx`, `chat-input.tsx`. Use shadcn `Button`, `Input`, `ScrollArea`, `Avatar` |
-| **D3** | Chat logic (mock) | 4 | Wire up local state for messages, handle send, auto-scroll, loading states. Use mock echo responses to test the flow |
-| **D4** | Styling & responsiveness | 3 | Polish the UI — dark/light mode toggle, mobile responsive, empty state, typing indicator animation |
-| **D5** | Markdown rendering | 2 | Install `react-markdown` + `remark-gfm` to render assistant messages as rich markdown |
+| Day    | Task                     | Hours | Details                                                                                                                                      |
+| ------ | ------------------------ | ----- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D1** | Project scaffold - done  | 3     | Initialize Next.js (App Router, TypeScript, Tailwind), install shadcn/ui, configure project structure, set up Git repo                       |
+| **D2** | Chat layout              | 4     | Build `chat-container.tsx`, `message-list.tsx`, `message-bubble.tsx`, `chat-input.tsx`. Use shadcn `Button`, `Input`, `ScrollArea`, `Avatar` |
+| **D3** | Chat logic (mock)        | 4     | Wire up local state for messages, handle send, auto-scroll, loading states. Use mock echo responses to test the flow                         |
+| **D4** | Styling & responsiveness | 3     | Polish the UI — dark/light mode toggle, mobile responsive, empty state, typing indicator animation                                           |
+| **D5** | Markdown rendering       | 2     | Install `react-markdown` + `remark-gfm` to render assistant messages as rich markdown                                                        |
 
 **Milestone:** A polished chat UI that echoes back messages with mock responses.
 
@@ -331,12 +334,12 @@ Build a fully functional chat interface — no AI yet, just the shell.
 
 Connect Gemini via Vercel AI SDK for real conversational AI.
 
-| Day | Task | Hours | Details |
-|-----|------|-------|---------|
-| **D6** | API keys & clients | 2 | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts` |
-| **D7** | API route + streaming | 4 | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response |
-| **D8** | Connect UI to API | 3 | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading |
-| **D9** | System prompt & polish | 3 | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
+| Day    | Task                   | Hours | Details                                                                                                                                     |
+| ------ | ---------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D6** | API keys & clients     | 2     | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts`             |
+| **D7** | API route + streaming  | 4     | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response           |
+| **D8** | Connect UI to API      | 3     | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading                            |
+| **D9** | System prompt & polish | 3     | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
 
 **Milestone:** A working AI chatbot powered by Gemini — general knowledge, no RAG yet.
 
@@ -351,13 +354,13 @@ Connect Gemini via Vercel AI SDK for real conversational AI.
 
 Build the data ingestion pipeline — scrape, chunk, embed, store.
 
-| Day | Task | Hours | Details |
-|-----|------|-------|---------|
-| **D10** | Set up services | 3 | Create [Upstash Vector](https://console.upstash.com/) index (768 dimensions, cosine metric). Get [Firecrawl](https://www.firecrawl.dev/) API key. Add keys to `.env.local`. Set up `src/lib/upstash.ts` |
-| **D11** | Scraping script | 3 | Build `scripts/ingest.ts` — use Firecrawl to crawl `https://www.sreedhareeyam.com/`. Log pages found, inspect markdown output quality |
-| **D12** | Chunking | 3 | Add `RecursiveCharacterTextSplitter` (800 chars, 200 overlap). Split scraped markdown into chunks. Log chunk count and sample chunks |
-| **D13** | Embedding & storage | 3 | Use Gemini `text-embedding-004` to embed each chunk. Batch upsert into Upstash Vector with metadata (text, source URL, title). Build `scripts/clear-index.ts` utility |
-| **D14** | Verify & iterate | 2 | Query Upstash Vector manually with test queries. Check if relevant chunks are returned. Re-tune chunk size/overlap if needed |
+| Day     | Task                | Hours | Details                                                                                                                                                                                                 |
+| ------- | ------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D10** | Set up services     | 3     | Create [Upstash Vector](https://console.upstash.com/) index (768 dimensions, cosine metric). Get [Firecrawl](https://www.firecrawl.dev/) API key. Add keys to `.env.local`. Set up `src/lib/upstash.ts` |
+| **D11** | Scraping script     | 3     | Build `scripts/ingest.ts` — use Firecrawl to crawl `https://www.sreedhareeyam.com/`. Log pages found, inspect markdown output quality                                                                   |
+| **D12** | Chunking            | 3     | Add `RecursiveCharacterTextSplitter` (800 chars, 200 overlap). Split scraped markdown into chunks. Log chunk count and sample chunks                                                                    |
+| **D13** | Embedding & storage | 3     | Use Gemini `text-embedding-004` to embed each chunk. Batch upsert into Upstash Vector with metadata (text, source URL, title). Build `scripts/clear-index.ts` utility                                   |
+| **D14** | Verify & iterate    | 2     | Query Upstash Vector manually with test queries. Check if relevant chunks are returned. Re-tune chunk size/overlap if needed                                                                            |
 
 **Milestone:** Sreedhareeyam website content is fully indexed in Upstash Vector.
 
@@ -372,13 +375,13 @@ Build the data ingestion pipeline — scrape, chunk, embed, store.
 
 Connect retrieval to generation — the bot now answers from real knowledge.
 
-| Day | Task | Hours | Details |
-|-----|------|-------|---------|
-| **D15** | RAG in API route | 4 | Update `/api/chat/route.ts`: embed user query → search Upstash (top 5) → inject retrieved chunks into system prompt → generate answer with context |
-| **D16** | Source citations | 2 | Display source URLs alongside answers. Add "Sources" section below assistant messages in the UI |
-| **D17** | Prompt engineering | 2 | Refine the system prompt — instruct the model to only answer from provided context, handle "I don't know" gracefully, format responses well |
-| **D18** | Testing & edge cases | 2 | Test with various question types: factual, comparison, off-topic. Handle edge cases (no results found, API errors, rate limits) |
-| **D19** | Deploy to Vercel | 2 | Push to GitHub, connect to Vercel, add environment variables, deploy. Test the live URL on different devices |
+| Day     | Task                 | Hours | Details                                                                                                                                            |
+| ------- | -------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D15** | RAG in API route     | 4     | Update `/api/chat/route.ts`: embed user query → search Upstash (top 5) → inject retrieved chunks into system prompt → generate answer with context |
+| **D16** | Source citations     | 2     | Display source URLs alongside answers. Add "Sources" section below assistant messages in the UI                                                    |
+| **D17** | Prompt engineering   | 2     | Refine the system prompt — instruct the model to only answer from provided context, handle "I don't know" gracefully, format responses well        |
+| **D18** | Testing & edge cases | 2     | Test with various question types: factual, comparison, off-topic. Handle edge cases (no results found, API errors, rate limits)                    |
+| **D19** | Deploy to Vercel     | 2     | Push to GitHub, connect to Vercel, add environment variables, deploy. Test the live URL on different devices                                       |
 
 **Milestone:** Fully deployed RAG chatbot answering questions about Sreedhareeyam.
 
@@ -391,13 +394,13 @@ Connect retrieval to generation — the bot now answers from real knowledge.
 
 ### Hour Summary
 
-| Phase | Focus | Hours | Cumulative |
-|-------|-------|-------|------------|
-| **Phase 1** | Chat UI | 16 | 16 |
-| **Phase 2** | LLM Integration | 12 | 28 |
-| **Phase 3** | Scraping & Vectors | 14 | 42 |
-| **Phase 4** | RAG + Deploy | 12 | 54 |
-| **Buffer** | Debugging, learning, experimentation | 6 | **60** |
+| Phase       | Focus                                | Hours | Cumulative |
+| ----------- | ------------------------------------ | ----- | ---------- |
+| **Phase 1** | Chat UI                              | 16    | 16         |
+| **Phase 2** | LLM Integration                      | 12    | 28         |
+| **Phase 3** | Scraping & Vectors                   | 14    | 42         |
+| **Phase 4** | RAG + Deploy                         | 12    | 54         |
+| **Buffer**  | Debugging, learning, experimentation | 6     | **60**     |
 
 > [!TIP]
 > **Don't rush phases.** Each phase produces a working milestone you can demo. If you finish early, use the buffer time to improve prompt quality, add features (like suggested questions), or polish the UI.
