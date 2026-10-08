@@ -316,7 +316,7 @@ Build a fully functional chat interface — no AI yet, just the shell.
 | Day    | Task                     | Hours | Details                                                                                                                                      |
 | ------ | ------------------------ | ----- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | **D1** | Project scaffold - done  | 3     | Initialize Next.js (App Router, TypeScript, Tailwind), install shadcn/ui, configure project structure, set up Git repo                       |
-| **D2** | Chat layout              | 4     | Build `chat-container.tsx`, `message-list.tsx`, `message-bubble.tsx`, `chat-input.tsx`. Use shadcn `Button`, `Input`, `ScrollArea`, `Avatar` |
+| **D2** | Chat layout - done       | 4     | Build `chat-container.tsx`, `message-list.tsx`, `message-bubble.tsx`, `chat-input.tsx`. Use shadcn `Button`, `Input`, `ScrollArea`, `Avatar` |
 | **D3** | Chat logic (mock)        | 4     | Wire up local state for messages, handle send, auto-scroll, loading states. Use mock echo responses to test the flow                         |
 | **D4** | Styling & responsiveness | 3     | Polish the UI — dark/light mode toggle, mobile responsive, empty state, typing indicator animation                                           |
 | **D5** | Markdown rendering       | 2     | Install `react-markdown` + `remark-gfm` to render assistant messages as rich markdown                                                        |
