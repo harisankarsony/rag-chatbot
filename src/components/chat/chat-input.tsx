@@ -49,15 +49,15 @@ export default function ChatInput({
     <div className="w-full px-4 sm:px-6 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-5 pt-3 backdrop-blur-md bg-background-overlay border-t border-border/50">
       <form
         onSubmit={handleSubmit}
-        className="relative flex items-center gap-2 rounded-2xl border border-border/80 bg-transparent px-3.5 py-2 ring-0 ring-emerald-500/0 focus-within:border-emerald-500/60 focus-within:ring-4 focus-within:ring-emerald-500/20 transition-all duration-500 ease-out"
+        className="relative flex items-center gap-2 rounded-2xl border-2 border-emerald-500/35 dark:border-emerald-400/35 bg-emerald-50/80 dark:bg-[#15231d] px-3.5 sm:px-4 py-2.5 sm:py-1.5 shadow-md shadow-emerald-500/5 dark:shadow-black/40 hover:border-emerald-500/50 dark:hover:border-emerald-400/50 focus-within:border-emerald-500 dark:focus-within:border-emerald-400 focus-within:ring-4 focus-within:ring-emerald-500/20 focus-within:shadow-lg focus-within:shadow-emerald-500/10 transition-all duration-300 ease-out"
       >
         <Input
           ref={inputRef}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="Ask about eye care, treatments, or hospital..."
+          placeholder="Ask about hospital and treatments..."
           disabled={isLoading}
-          className="flex-1 border-0 bg-transparent dark:bg-transparent disabled:bg-transparent dark:disabled:bg-transparent px-1 py-1 text-base sm:text-sm shadow-none focus-visible:ring-0 placeholder:text-muted-foreground/70"
+          className="flex-1 border-0 bg-transparent dark:bg-transparent disabled:bg-transparent dark:disabled:bg-transparent px-1 py-1 text-base sm:text-sm font-medium placeholder:font-normal shadow-none focus-visible:ring-0 placeholder:text-muted-foreground/70 caret-emerald-500 dark:caret-emerald-400"
         />
         <div
           className={`flex items-center justify-center overflow-hidden transition-all duration-300 ease-in-out ${
@@ -85,23 +85,22 @@ export default function ChatInput({
           type="submit"
           size="icon"
           disabled={!value.trim() || isLoading}
-          className="h-8 w-8 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-zinc-950 transition-all shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs"
+          className="h-9 w-9 sm:h-8 sm:w-8 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-zinc-950 transition-all shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs"
           aria-label="Send message"
         >
           <ArrowUp className="h-4 w-4 stroke-[2.5]" />
         </Button>
       </form>
       <p className="mt-2 text-center text-[11px] text-muted-foreground/60 tracking-tight">
-        Independent RAG Learning Project · Knowledge based on{" "}
+        Developed by{" "}
         <a
-          href="https://www.sreedhareeyam.com"
+          href="https://github.com/harisankarsony"
           target="_blank"
           rel="noopener noreferrer"
           className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
         >
-          sreedhareeyam.com
-        </a>{" "}
-        · Not affiliated with Sreedhareeyam.
+          harisankarsony
+        </a>
       </p>
     </div>
   );

@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ChatMessage } from "@/types";
-import { ArrowUpRight, Bot, Sparkles } from "lucide-react";
+import { ArrowUpRight, Bot } from "lucide-react";
 import { useEffect, useRef } from "react";
 import MessageBubble from "./message-bubble";
 
@@ -48,37 +48,64 @@ export default function MessageList({
 }: MessageListProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const scrollToBottom = (smooth = true) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: smooth ? "smooth" : "instant",
+    });
+  };
+
+  // Scroll when messages update or loading state changes
   useEffect(() => {
     // Don't scroll if we're on the empty landing screen
     if (messages?.length === 0 && !isLoading) return;
 
-    // Use a short timeout to ensure the DOM has fully updated and painted
-    // before triggering the scroll, fixing occasional missed auto-scrolls.
-    const timer = setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTo({
-          top: scrollRef.current.scrollHeight,
-          behavior: "smooth",
-        });
-      }
-    }, 100);
+    // Short timeout ensures DOM has fully painted before scrolling
+    const timer = setTimeout(() => scrollToBottom(), 100);
     return () => clearTimeout(timer);
+  }, [messages, isLoading]);
+
+  // Re-scroll when the mobile on-screen keyboard opens/closes.
+  // visualViewport fires "resize" when the keyboard changes the visible area.
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+
+    const handleViewportResize = () => {
+      // Only scroll if there is an active conversation
+      if (!scrollRef.current) return;
+      const hasContent = (messages?.length ?? 0) > 0 || isLoading;
+      if (hasContent) {
+        scrollToBottom(true);
+      }
+    };
+
+    vv.addEventListener("resize", handleViewportResize);
+    return () => vv.removeEventListener("resize", handleViewportResize);
   }, [messages, isLoading]);
 
   return (
     <div
       ref={scrollRef}
-      className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 flex flex-col"
+      className="flex-1 min-h-0 overflow-y-auto scroll-smooth px-4 sm:px-6 py-4 sm:py-6 flex flex-col"
     >
       {messages?.length === 0 && !isLoading ? (
         // Modern Tech Minimalist Empty State
         <div className="m-auto flex flex-col items-center py-2 sm:py-8 text-center max-w-2xl w-full animate-message-appear">
-          {/* Glowing Emblem */}
-          <div className="relative mb-5 sm:mb-6 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500/20 via-emerald-500/10 to-transparent border border-emerald-500/25 shadow-md shadow-emerald-500/10">
-            <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-emerald-600 dark:text-emerald-400" />
-            <span className="absolute -top-1 -right-1 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+          {/* Header-matching Herb Emblem with Animated Leaves */}
+          <div className="group relative mb-5 sm:mb-6 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-md shadow-emerald-500/10 transition-all duration-300 hover:scale-105 hover:bg-emerald-500/15">
+            {/* Subtle ambient breathing aura */}
+            <span
+              className="absolute inset-0 rounded-2xl bg-emerald-500/10 animate-pulse pointer-events-none"
+              aria-hidden
+            />
+            {/* Animated Leaves (Swaying Herb) */}
+            <span
+              className="relative text-2xl sm:text-3xl  inline-block animate-leaf-sway"
+              aria-hidden
+            >
+              🌿
             </span>
           </div>
 
@@ -98,8 +125,8 @@ export default function MessageList({
             </a>
             .
           </p>
-          <div className="inline-flex items-center gap-2 rounded-full bg-muted/80 border border-amber-500/40 dark:border-amber-500/30 px-3 py-1.5 text-[11px] text-muted-foreground mb-6 max-w-full">
-            <span className="leading-snug">
+          <div className="inline-flex text-center align-middle items-center gap-2 rounded-full bg-muted/80 dark:bg-amber-500/[0.08] border border-amber-500/40 dark:border-amber-500/35 px-3 py-1.5 text-[11px] text-muted-foreground dark:text-amber-200/85 mb-6 max-w-full select-none">
+            <span className="leading-snug text-center select-none">
               Independent RAG learning project · Not officially affiliated with
               Sreedhareeyam
             </span>

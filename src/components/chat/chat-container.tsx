@@ -5,7 +5,7 @@
 import { cn } from "@/lib/utils";
 import { ChatMessage } from "@/types";
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatInput from "./chat-input";
 import MessageList from "./message-list";
 import ThemeToggle from "./theme-toggle";
@@ -78,9 +78,32 @@ function getNextMockResponse(): string {
 export default function ChatContainer() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const hasConversation = messages?.length > 0;
 
+  function handleReset() {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setIsLoading(false);
+    setMessages([]);
+  }
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
+
   async function handleSend(text: string) {
+    // Abort any pending operation
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     // 1. Append the user message immediately
     const userMessage: ChatMessage = {
       id: Date.now().toString() + Math.random().toString(36).substring(2),
@@ -93,20 +116,37 @@ export default function ChatContainer() {
     // 2. Show loading indicator
     setIsLoading(true);
 
-    // 3. Simulate network delay (500–1200 ms)
-    await new Promise((resolve) =>
-      setTimeout(resolve, 500 + Math.random() * 700),
-    );
+    try {
+      // 3. Simulate delay cancellable via abort signal
+      await new Promise<void>((resolve, reject) => {
+        const timer = setTimeout(resolve, 500 + Math.random() * 700);
+        controller.signal.addEventListener("abort", () => {
+          clearTimeout(timer);
+          reject(new DOMException("Aborted", "AbortError"));
+        });
+      });
 
-    // 4. Append mock assistant reply
-    const assistantMessage: ChatMessage = {
-      id: Date.now().toString() + Math.random().toString(36).substring(2),
-      role: "assistant",
-      content: getNextMockResponse(),
-      createdAt: new Date(),
-    };
-    setMessages((prev) => [...prev, assistantMessage]);
-    setIsLoading(false);
+      if (controller.signal.aborted) return;
+
+      // 4. Append mock assistant reply
+      const assistantMessage: ChatMessage = {
+        id: Date.now().toString() + Math.random().toString(36).substring(2),
+        role: "assistant",
+        content: getNextMockResponse(),
+        createdAt: new Date(),
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch {
+      // Aborted or cancelled — exit silently
+      if (controller.signal.aborted) return;
+    } finally {
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null;
+      }
+      if (!controller.signal.aborted) {
+        setIsLoading(false);
+      }
+    }
   }
 
   return (
@@ -117,10 +157,7 @@ export default function ChatContainer() {
           <button
             type="button"
             disabled={!hasConversation}
-            onClick={() => {
-              setIsLoading(false);
-              setMessages([]);
-            }}
+            onClick={handleReset}
             className={cn(
               "relative flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs outline-none shrink-0 overflow-hidden",
               hasConversation
@@ -150,25 +187,20 @@ export default function ChatContainer() {
             />
           </button>
           <div>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                disabled={!hasConversation || isLoading}
-                onClick={() => {
-                  if (!isLoading) setMessages([]);
-                }}
+            <div className="flex items-center gap-2 align-middle ">
+              <span
                 className={cn(
                   "text-sm font-semibold tracking-tight text-foreground outline-none",
                 )}
               >
                 Sreedhareeyam Guide
-              </button>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                RAG Project
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 ">
+                RAG Chatbot
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground mt-0.5">
-              Knowledge from{" "}
+            <p className="text-[11px] text-muted-foreground mt-0.75 ">
+              Content from{" "}
               <a
                 href="https://www.sreedhareeyam.com"
                 target="_blank"
