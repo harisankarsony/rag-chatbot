@@ -10,13 +10,62 @@ import ChatInput from "./chat-input";
 import MessageList from "./message-list";
 import ThemeToggle from "./theme-toggle";
 
-// Sreedhareeyam-specific mock responses (for Phase 1 UI simulation)
+// Sreedhareeyam-specific mock responses (Phase 1 — D5: rich markdown to exercise renderer)
 const MOCK_RESPONSES = [
-  "**Sreedhareeyam Ayurvedic Eye Hospital & Research Centre** is based in Koothattukulam, Kerala. It specializes in traditional Ayurvedic Netra Chikitsa (ophthalmology) combined with modern diagnostic standards.",
-  "Sreedhareeyam provides non-invasive Ayurvedic therapies such as **Netra Tarpana**, **Aschyothana**, and **Seka** for complex conditions including diabetic retinopathy, glaucoma, macular degeneration, and dry eye syndrome.",
-  "Sreedhareeyam manufactures authentic formulations such as **Sunetra herbal eye drops**, prepared with classical ingredients like Triphala, Tulsi, and Rose water to relieve digital eye strain and maintain ocular clarity.",
-  "The heritage of Sreedhareeyam originates from the historic **Nelliakkattu Mana**, an ancestral Ayurvedic physician family renowned across centuries for specialized ophthalmic wisdom and holistic healing.",
-  "*(Disclaimer: This is an independent RAG educational project and is not directly affiliated with or endorsed by Sreedhareeyam Ayurvedic Eye Hospital).* Sreedhareeyam also operates wellness and OP centers across India.",
+  `## About Sreedhareeyam
+
+**Sreedhareeyam Ayurvedic Eye Hospital & Research Centre** is based in Koothattukulam, Kerala. It specialises in traditional **Netra Chikitsa** (Ayurvedic ophthalmology) combined with modern diagnostics.
+
+> Founded by the ancestral *Nelliakkattu Mana* physician family, the hospital has treated complex eye conditions for generations.`,
+
+  `## Key Treatments Offered
+
+Sreedhareeyam provides specialised therapies for conditions such as:
+
+- **Diabetic Retinopathy** — Netra Tarpana & Seka
+- **Glaucoma** — Aschyothana & herbal formulations
+- **Macular Degeneration** — Integrated Ayurvedic protocols
+- **Dry Eye Syndrome** — Netra Tarpana with medicated ghee
+- **Computer Vision Syndrome** — Lifestyle + herbal support
+
+All treatments are **non-invasive** and grounded in classical Ayurvedic texts.`,
+
+  `## Sunetra Eye Drops
+
+Sreedhareeyam manufactures \`Sunetra\` — authentic herbal eye drops prepared from:
+
+| Ingredient | Benefit |
+|---|---|
+| **Triphala** | Antioxidant, strengthens eye muscles |
+| **Tulsi** | Anti-inflammatory, soothes irritation |
+| **Rose Water** | Cooling, relieves dryness |
+
+> *Sunetra is one of their most popular proprietary formulations for digital eye strain.*`,
+
+  `## Heritage & Legacy
+
+The roots of Sreedhareeyam trace back to the **Nelliakkattu Mana** — a renowned ancestral Ayurvedic physician family from Kerala.
+
+### Why it matters
+
+1. Centuries of specialised ophthalmic knowledge
+2. Classical formulations passed through generations
+3. Combination of traditional wisdom with evidence-based research
+
+This unique heritage makes Sreedhareeyam one of the **most trusted** Ayurvedic eye care centres in India.`,
+
+  `## Disclaimer
+
+*(This is an independent RAG educational project and is **not** affiliated with or endorsed by Sreedhareeyam Ayurvedic Eye Hospital.)*
+
+---
+
+Sreedhareeyam also operates:
+- Wellness centres across India
+- Outpatient (OP) clinics in major cities
+- An online consultation service
+
+Visit [sreedhareeyam.com](https://www.sreedhareeyam.com) for official information.`,
 ];
 
 let mockIndex = 0;
