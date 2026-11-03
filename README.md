@@ -334,12 +334,12 @@ Build a fully functional chat interface — no AI yet, just the shell.
 
 Connect Gemini via Vercel AI SDK for real conversational AI.
 
-| Day    | Task                   | Hours | Details                                                                                                                                     |
-| ------ | ---------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D6** | API keys & clients     | 2     | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts`             |
-| **D7** | API route + streaming  | 4     | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response           |
-| **D8** | Connect UI to API      | 3     | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading                            |
-| **D9** | System prompt & polish | 3     | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
+| Day    | Task                      | Hours | Details                                                                                                                                     |
+| ------ | ------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D6** | API keys & clients - done | 2     | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts`             |
+| **D7** | API route + streaming     | 4     | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response           |
+| **D8** | Connect UI to API         | 3     | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading                            |
+| **D9** | System prompt & polish    | 3     | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
 
 **Milestone:** A working AI chatbot powered by Gemini — general knowledge, no RAG yet.
 
