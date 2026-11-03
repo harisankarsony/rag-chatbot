@@ -25,7 +25,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
       <Avatar className="h-8 w-8 shrink-0 mt-0.5 rounded-xl border border-border/50 shadow-xs">
         <AvatarFallback
           className={cn(
-            "rounded-xl text-xs font-semibold flex items-center justify-center transition-colors",
+            "rounded-xl text-sm font-semibold flex items-center justify-center transition-colors",
             isUser
               ? "bg-[#00a884] text-white"
               : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
@@ -38,7 +38,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
       {/* Bubble Container */}
       <div
         className={cn(
-          "max-w-[80%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed tracking-normal transition-all",
+          "max-w-[85%] sm:max-w-[80%] lg:max-w-[75%] rounded-2xl px-4 py-3 text-base leading-relaxed tracking-normal transition-all",
           isUser
             ? "rounded-tr-xs bg-[#d9fdd3] text-[#111b21] border border-emerald-200/60 dark:bg-[#005c4b] dark:text-[#e9edef] dark:border-emerald-700/40 shadow-xs"
             : "rounded-tl-xs bg-card text-card-foreground border border-border/70 dark:bg-[#1a2428] dark:border-border/40 shadow-xs",
@@ -52,17 +52,17 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
             components={{
               // Headings
               h1: ({ children }) => (
-                <h1 className="text-base font-bold mb-2 mt-1 text-foreground">
+                <h1 className="text-lg font-bold mb-2 mt-1 text-foreground">
                   {children}
                 </h1>
               ),
               h2: ({ children }) => (
-                <h2 className="text-sm font-semibold mb-1.5 mt-2 text-foreground">
+                <h2 className="text-base font-semibold mb-1.5 mt-2 text-foreground">
                   {children}
                 </h2>
               ),
               h3: ({ children }) => (
-                <h3 className="text-sm font-semibold mb-1 mt-2 text-foreground/90">
+                <h3 className="text-base font-semibold mb-1 mt-2 text-foreground/90">
                   {children}
                 </h3>
               ),
@@ -119,21 +119,21 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
 
               // Code block
               pre: ({ children }) => (
-                <pre className="my-2 rounded-xl bg-muted/80 dark:bg-black/40 border border-border/60 px-4 py-3 overflow-x-auto font-mono text-[0.8em] leading-relaxed">
+                <pre className="my-2 rounded-xl bg-muted/80 dark:bg-black/50 border border-border/70 dark:border-zinc-700 px-4 py-3 overflow-x-auto font-mono text-[0.8em] leading-relaxed">
                   {children}
                 </pre>
               ),
 
               // Blockquote
               blockquote: ({ children }) => (
-                <blockquote className="my-2 border-l-2 border-emerald-500/60 pl-3 italic text-foreground/70">
+                <blockquote className="my-2.5 border-l-2 border-emerald-500/70 dark:border-emerald-400 pl-3.5 italic text-foreground/80 dark:text-foreground/85">
                   {children}
                 </blockquote>
               ),
 
               // Horizontal rule
               hr: () => (
-                <hr className="my-2 border-border/60" />
+                <hr className="my-3 border-0 border-t border-border/80 dark:border-zinc-600/80" />
               ),
 
               // Links
@@ -142,7 +142,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 hover:text-emerald-500 transition-colors"
+                  className="font-medium underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
                 >
                   {children}
                 </a>
@@ -150,26 +150,36 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
 
               // Tables (via remark-gfm)
               table: ({ children }) => (
-                <div className="my-2 overflow-x-auto rounded-lg border border-border/60">
-                  <table className="w-full text-xs">{children}</table>
+                <div className="my-3 overflow-x-auto rounded-xl border border-border/80 dark:border-zinc-700 bg-muted/15 dark:bg-zinc-900/30 shadow-xs">
+                  <table className="w-full text-sm border-collapse">
+                    {children}
+                  </table>
                 </div>
               ),
               thead: ({ children }) => (
-                <thead className="bg-muted/60 text-foreground/80">
+                <thead className="bg-muted/70 dark:bg-zinc-800/80 text-foreground border-b border-border/80 dark:border-zinc-700">
                   {children}
                 </thead>
               ),
               tbody: ({ children }) => (
-                <tbody className="divide-y divide-border/40">{children}</tbody>
+                <tbody className="divide-y divide-border/60 dark:divide-zinc-700/80">
+                  {children}
+                </tbody>
               ),
-              tr: ({ children }) => <tr>{children}</tr>,
+              tr: ({ children }) => (
+                <tr className="border-b border-border/60 dark:border-zinc-700/80 last:border-b-0 hover:bg-emerald-500/[0.06] transition-none hover:transition-colors hover:duration-150">
+                  {children}
+                </tr>
+              ),
               th: ({ children }) => (
-                <th className="px-3 py-2 text-left font-semibold">
+                <th className="px-3 py-2 text-left font-semibold text-foreground border-r border-border/70 dark:border-zinc-700 last:border-r-0 whitespace-nowrap">
                   {children}
                 </th>
               ),
               td: ({ children }) => (
-                <td className="px-3 py-2 text-foreground/80">{children}</td>
+                <td className="px-3 py-2 text-foreground/90 border-r border-border/60 dark:border-zinc-700/80 last:border-r-0 align-top leading-relaxed">
+                  {children}
+                </td>
               ),
             }}
           >

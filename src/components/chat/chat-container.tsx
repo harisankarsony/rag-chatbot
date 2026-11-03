@@ -79,6 +79,7 @@ export default function ChatContainer() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const chatPushedRef = useRef(false);
   const hasConversation = messages?.length > 0;
 
   function handleReset() {
@@ -88,10 +89,43 @@ export default function ChatContainer() {
     }
     setIsLoading(false);
     setMessages([]);
+
+    if (typeof window !== "undefined") {
+      window.getSelection()?.removeAllRanges();
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      if (chatPushedRef.current) {
+        chatPushedRef.current = false;
+        window.history.back();
+      }
+    }
   }
 
+  // Handle browser back button (popstate)
   useEffect(() => {
+    // If page reloaded with stale chat state while on home screen, clear it
+    if (typeof window !== "undefined" && window.history.state?.chat) {
+      window.history.replaceState(null, "");
+    }
+
+    function handlePopState() {
+      chatPushedRef.current = false;
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
+      }
+      setIsLoading(false);
+      setMessages([]);
+      window.getSelection()?.removeAllRanges();
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    }
+
+    window.addEventListener("popstate", handlePopState);
     return () => {
+      window.removeEventListener("popstate", handlePopState);
       abortControllerRef.current?.abort();
     };
   }, []);
@@ -103,6 +137,12 @@ export default function ChatContainer() {
     }
     const controller = new AbortController();
     abortControllerRef.current = controller;
+
+    // Push history state on conversation initialization
+    if (!chatPushedRef.current && typeof window !== "undefined") {
+      window.history.pushState({ chat: true }, "");
+      chatPushedRef.current = true;
+    }
 
     // 1. Append the user message immediately
     const userMessage: ChatMessage = {
@@ -150,19 +190,18 @@ export default function ChatContainer() {
   }
 
   return (
-    <div className="flex flex-col h-dvh w-full max-w-4xl mx-auto">
+    <div className="flex flex-col h-dvh w-full">
       {/* Frosted Modern Header */}
-      <header className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border/60 px-4 sm:px-6 py-3 backdrop-blur-md bg-background-overlay">
+      <header className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border/60 px-4 sm:px-6 lg:px-8 py-3 backdrop-blur-md bg-background-overlay">
         <div className="flex items-center gap-3">
           <button
             type="button"
-            disabled={!hasConversation}
             onClick={handleReset}
             className={cn(
               "relative flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs outline-none shrink-0 overflow-hidden",
               hasConversation
                 ? "hover:bg-emerald-500/20 transition-colors cursor-pointer"
-                : "cursor-default",
+                : "",
             )}
             title={hasConversation ? "Back to home" : ""}
             aria-label={hasConversation ? "Back to home" : ""}
@@ -190,22 +229,22 @@ export default function ChatContainer() {
             <div className="flex items-center gap-2 align-middle ">
               <span
                 className={cn(
-                  "text-sm font-semibold tracking-tight text-foreground outline-none",
+                  "text-base font-semibold tracking-tight text-foreground outline-none",
                 )}
               >
                 Sreedhareeyam Guide
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 ">
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 ">
                 RAG Chatbot
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground mt-0.75 ">
+            <p className="text-xs text-muted-foreground mt-0.75 ">
               Content from{" "}
               <a
                 href="https://www.sreedhareeyam.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
               >
                 sreedhareeyam.com
               </a>{" "}

@@ -46,23 +46,32 @@ export default function ChatInput({
   }
 
   return (
-    <div className="w-full px-4 sm:px-6 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-5 pt-3 backdrop-blur-md bg-background-overlay border-t border-border/50">
+    <div className="w-full px-4 sm:px-6 lg:px-8 lg:pb-3 pb-4 pt-3 backdrop-blur-md bg-background-overlay border-t border-border/50">
       <form
         onSubmit={handleSubmit}
-        className="relative flex items-center gap-2 rounded-2xl border-2 border-emerald-500/35 dark:border-emerald-400/35 bg-emerald-50/80 dark:bg-[#15231d] px-3.5 sm:px-4 py-2.5 sm:py-1.5 shadow-md shadow-emerald-500/5 dark:shadow-black/40 hover:border-emerald-500/50 dark:hover:border-emerald-400/50 focus-within:border-emerald-500 dark:focus-within:border-emerald-400 focus-within:ring-4 focus-within:ring-emerald-500/20 focus-within:shadow-lg focus-within:shadow-emerald-500/10 transition-all duration-300 ease-out"
+        onClick={(e) => {
+          if (
+            (e.target as HTMLElement).tagName !== "BUTTON" &&
+            !(e.target as HTMLElement).closest("button")
+          ) {
+            inputRef.current?.focus();
+          }
+        }}
+        className="relative flex items-center gap-2 rounded-2xl border-2 border-emerald-500/35 dark:border-emerald-400/35 bg-emerald-50/80 dark:bg-[#15231d] px-3.5 sm:px-4 py-2.5 lg:py-1.5 shadow-md shadow-emerald-500/5 dark:shadow-black/40 hover:border-emerald-500/50 dark:hover:border-emerald-400/50 focus-within:border-emerald-500 dark:focus-within:border-emerald-400 focus-within:ring-4 focus-within:ring-emerald-500/20 focus-within:shadow-lg focus-within:shadow-emerald-500/10 transition-all duration-300 ease-out"
       >
         <Input
+          id="chat-input"
           ref={inputRef}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Ask about hospital and treatments..."
           disabled={isLoading}
-          className="flex-1 border-0 bg-transparent dark:bg-transparent disabled:bg-transparent dark:disabled:bg-transparent px-1 py-1 text-base sm:text-sm font-medium placeholder:font-normal shadow-none focus-visible:ring-0 placeholder:text-muted-foreground/70 caret-emerald-500 dark:caret-emerald-400"
+          className="flex-1 border-0 bg-transparent dark:bg-transparent disabled:bg-transparent dark:disabled:bg-transparent px-1 py-1 text-base font-medium placeholder:font-normal shadow-none focus-visible:ring-0 placeholder:text-muted-foreground/70 caret-emerald-500 dark:caret-emerald-400"
         />
         <div
           className={`flex items-center justify-center overflow-hidden transition-all duration-300 ease-in-out ${
             value
-              ? "w-7 opacity-100 scale-100 rotate-0"
+              ? "w-8.5 lg:w-7 opacity-100 scale-100 rotate-0"
               : "w-0 opacity-0 scale-50 -rotate-90"
           }`}
         >
@@ -71,33 +80,46 @@ export default function ChatInput({
             variant="ghost"
             size="icon"
             tabIndex={value ? 0 : -1}
+            onMouseDown={(e) => {
+              // Prevent click from stealing focus on desktop
+              e.preventDefault();
+            }}
             onClick={() => {
               setValue("");
-              inputRef.current?.focus();
+              const isDesktop =
+                typeof window !== "undefined" &&
+                !window.matchMedia("(pointer: coarse)").matches &&
+                window.innerWidth >= 1024;
+
+              if (isDesktop) {
+                inputRef.current?.focus();
+              }
             }}
-            className="h-7 w-7 rounded-full text-muted-foreground hover:bg-muted hover:text-foreground shrink-0 cursor-pointer"
+            className="size-8 lg:size-7 rounded-full text-muted-foreground hover:bg-muted hover:text-foreground shrink-0 cursor-pointer"
             aria-label="Clear input"
+            title="Clear input"
           >
-            <X className="h-4 w-4" />
+            <X className="size-5 lg:size-4 stroke-[2.25]" />
           </Button>
         </div>
         <Button
           type="submit"
           size="icon"
           disabled={!value.trim() || isLoading}
-          className="h-9 w-9 sm:h-8 sm:w-8 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-zinc-950 transition-all shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs"
+          className="h-9 w-9 lg:h-8 lg:w-8 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-zinc-950 transition-all shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shadow-xs"
           aria-label="Send message"
+          title="Send message"
         >
           <ArrowUp className="h-4 w-4 stroke-[2.5]" />
         </Button>
       </form>
-      <p className="mt-2 text-center text-[11px] text-muted-foreground/60 tracking-tight">
+      <p className="mt-3 text-center text-xs text-muted-foreground/60 tracking-tight">
         Developed by{" "}
         <a
           href="https://github.com/harisankarsony"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
         >
           harisankarsony
         </a>

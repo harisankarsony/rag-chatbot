@@ -50,6 +50,7 @@
 }
 
 :root {
+  color-scheme: light;
   --background: oklch(0.985 0.003 160);
   --background-overlay: oklch(0.985 0.003 160 / 0.85);
   --foreground: oklch(0.19 0.015 160);
@@ -86,6 +87,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: oklch(0.13 0.012 165);
   --background-overlay: oklch(0.13 0.012 165 / 0.85);
   --foreground: oklch(0.95 0.005 160);
@@ -193,3 +195,166 @@
   animation: leaf-sway 3.2s ease-in-out infinite;
   will-change: transform;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Authentic Peepal Leaf (*Ficus religiosa*) Cursors (Light & Dark Modes)
+   - Botanically accurate Peepal anatomy: gradual linear acumen (drip tip)
+     pointing precisely at (2, 2) flowing into broad cordate heart lobes and petiole.
+   - Realistic organic tree foliage coloration: warm sap/forest green blade,
+     cream-sage venation, and high-contrast double outline for universal visibility.
+   - Interactive pointer: Hyper-realistic 3D Ayurvedic dewdrop (*Netra Bindu*)
+     with refractive liquid sphere, internal caustics, and specular glints.
+   - Text select: Medicinal Ayurvedic sprout I-beam with cotyledon serifs.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* --- LIGHT MODE --- */
+html:not(.dark),
+html:not(.dark) body,
+html:not(.dark) .cursor-default {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3Cfilter id=%22pShdLD%22 x=%22-25%25%22 y=%22-25%25%22 width=%22150%25%22 height=%22150%25%22%3E%3CfeDropShadow dx=%220.5%22 dy=%221.2%22 stdDeviation=%221.1%22 flood-color=%22%23000000%22 flood-opacity=%220.32%22/%3E%3C/filter%3E%3ClinearGradient id=%22pGradUpLD%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%234eb363%22/%3E%3Cstop offset=%2260%25%22 stop-color=%22%233f9b52%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23286839%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22pGradLowLD%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%233f9b52%22/%3E%3Cstop offset=%2250%25%22 stop-color=%22%23286839%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23184623%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg filter=%22url(%23pShdLD)%22%3E%3C!-- Curved Petiole (Stem) --%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%231a4623%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C!-- Complete Outline Silhouette for Contrast --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22%23ffffff%22 stroke=%22%23ffffff%22 stroke-width=%222.5%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22/%3E%3C!-- Lower Shaded Blade --%3E%3Cpath d=%22M 2.5%2C2.5 L 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22url(%23pGradLowLD)%22/%3E%3C!-- Upper Sunlit Blade --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 L 2.5%2C2.5 Z%22 fill=%22url(%23pGradUpLD)%22/%3E%3C!-- Central Midrib Vein: from apex to sinus --%3E%3Cpath d=%22M 2.5%2C2.5 Q 10.0%2C10.0 17.5%2C17.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%221.15%22 stroke-linecap=%22round%22/%3E%3C!-- Lateral Secondary Veins (Botanically accurate arching venation) --%3E%3C!-- Upper Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 9.0%2C5.0 12.0%2C6.2%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 13.0%2C7.5 17.0%2C9.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 17.0%2C11.2 21.5%2C13.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 18.5%2C14.8 21.5%2C17.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3C!-- Lower Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 5.0%2C9.0 6.2%2C12.0%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 7.5%2C13.0 9.5%2C17.0%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 11.2%2C17.0 13.5%2C21.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 14.8%2C18.5 17.5%2C21.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3C!-- Apex Precision Target Point --%3E%3Ccircle cx=%222.5%22 cy=%222.5%22 r=%220.85%22 fill=%22%23ffffff%22/%3E%3C/g%3E%3C/svg%3E') 2 2, auto;
+}
+
+html:not(.dark) a,
+html:not(.dark) button,
+html:not(.dark) [role="button"],
+html:not(.dark) [type="button"],
+html:not(.dark) [type="submit"],
+html:not(.dark) .cursor-pointer,
+html:not(.dark) a *,
+html:not(.dark) button *,
+html:not(.dark) [role="button"] *,
+html:not(.dark) .cursor-pointer * {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3Cfilter id=%22pShdLP%22 x=%22-25%25%22 y=%22-25%25%22 width=%22150%25%22 height=%22150%25%22%3E%3CfeDropShadow dx=%220.5%22 dy=%221.2%22 stdDeviation=%221.1%22 flood-color=%22%23000000%22 flood-opacity=%220.32%22/%3E%3C/filter%3E%3ClinearGradient id=%22pGradUpLP%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%234eb363%22/%3E%3Cstop offset=%2260%25%22 stop-color=%22%233f9b52%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23286839%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22pGradLowLP%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%233f9b52%22/%3E%3Cstop offset=%2250%25%22 stop-color=%22%23286839%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23184623%22/%3E%3C/linearGradient%3E%3CradialGradient id=%22dewSphLP%22 cx=%2235%25%22 cy=%2232%25%22 r=%2265%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23bae6fd%22/%3E%3Cstop offset=%2230%25%22 stop-color=%22%2338bdf8%22/%3E%3Cstop offset=%2270%25%22 stop-color=%22%230284c7%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230369a1%22/%3E%3C/radialGradient%3E%3CradialGradient id=%22dewCstLP%22 cx=%2268%25%22 cy=%2270%25%22 r=%2238%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23e0f2fe%22 stop-opacity=%220.85%22/%3E%3Cstop offset=%2260%25%22 stop-color=%22%2338bdf8%22 stop-opacity=%220.35%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230284c7%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg filter=%22url(%23pShdLP)%22%3E%3C!-- Curved Petiole (Stem) --%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%231a4623%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C!-- Complete Outline Silhouette for Contrast --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22%23ffffff%22 stroke=%22%23ffffff%22 stroke-width=%222.5%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22/%3E%3C!-- Lower Shaded Blade --%3E%3Cpath d=%22M 2.5%2C2.5 L 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22url(%23pGradLowLP)%22/%3E%3C!-- Upper Sunlit Blade --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 L 2.5%2C2.5 Z%22 fill=%22url(%23pGradUpLP)%22/%3E%3C!-- Central Midrib Vein: from apex to sinus --%3E%3Cpath d=%22M 2.5%2C2.5 Q 10.0%2C10.0 17.5%2C17.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%221.15%22 stroke-linecap=%22round%22/%3E%3C!-- Lateral Secondary Veins (Botanically accurate arching venation) --%3E%3C!-- Upper Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 9.0%2C5.0 12.0%2C6.2%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 13.0%2C7.5 17.0%2C9.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 17.0%2C11.2 21.5%2C13.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 18.5%2C14.8 21.5%2C17.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3C!-- Lower Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 5.0%2C9.0 6.2%2C12.0%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 7.5%2C13.0 9.5%2C17.0%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 11.2%2C17.0 13.5%2C21.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 14.8%2C18.5 17.5%2C21.5%22 fill=%22none%22 stroke=%22%23d8f5d3%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.85%22/%3E%3C!-- Hyper-Realistic 3D Dewdrop (Ayurvedic Netra Bindu) --%3E%3Cg transform=%22translate(13.8%2C 13.5)%22%3E%3C!-- Soft Ambient Contact Shadow on Blade --%3E%3Cellipse cx=%220.9%22 cy=%221.3%22 rx=%224.4%22 ry=%224.0%22 fill=%22rgba(4%2C 22%2C 10%2C 0.45)%22/%3E%3C!-- Liquid Tension Meniscus Ring --%3E%3Ccircle cx=%220%22 cy=%220%22 r=%224.3%22 fill=%22none%22 stroke=%22%2338bdf8%22 stroke-width=%220.65%22 stroke-dasharray=%222 1%22 opacity=%220.65%22/%3E%3C!-- 3D Refractive Liquid Sphere --%3E%3Ccircle cx=%220%22 cy=%220%22 r=%223.6%22 fill=%22url(%23dewSphLP)%22 stroke=%22%23ffffff%22 stroke-width=%220.75%22/%3E%3C!-- Internal Caustic Glow --%3E%3Ccircle cx=%220%22 cy=%220%22 r=%223.2%22 fill=%22url(%23dewCstLP)%22/%3E%3C!-- Primary Specular Crescent Glint --%3E%3Cellipse cx=%22-1.1%22 cy=%22-1.1%22 rx=%221.3%22 ry=%220.8%22 transform=%22rotate(-40 -1.1 -1.1)%22 fill=%22%23ffffff%22/%3E%3C!-- Secondary Micro Sparkle --%3E%3Ccircle cx=%221.2%22 cy=%221.2%22 r=%220.45%22 fill=%22%23ffffff%22 opacity=%220.95%22/%3E%3C/g%3E%3C!-- Apex Precision Target Point --%3E%3Ccircle cx=%222.5%22 cy=%222.5%22 r=%220.85%22 fill=%22%23ffffff%22/%3E%3C/g%3E%3C/svg%3E') 2 2, pointer;
+}
+
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) [contenteditable="true"],
+html:not(.dark) .cursor-text,
+html:not(.dark) p,
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6,
+html:not(.dark) code,
+html:not(.dark) pre,
+html:not(.dark) blockquote {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22%3E%3Cdefs%3E%3Cfilter id=%22spShdL%22 x=%22-25%25%22 y=%22-25%25%22 width=%22150%25%22 height=%22150%25%22%3E%3CfeDropShadow dx=%220.5%22 dy=%221%22 stdDeviation=%220.9%22 flood-color=%22%23000000%22 flood-opacity=%220.28%22/%3E%3C/filter%3E%3C/defs%3E%3Cg filter=%22url(%23spShdL)%22%3E%3C!-- Backing High-Contrast Silhouette --%3E%3C!-- Vertical stem backing --%3E%3Cpath d=%22M 12%2C3.5 L 12%2C20.5%22 fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3C!-- Top cotyledon pair backing --%3E%3Cpath d=%22M 12%2C5.5 C 9.5%2C3.2 6.0%2C2.5 5.0%2C4.5 C 4.2%2C6.5 6.8%2C8.2 12%2C6.8 C 17.2%2C8.2 19.8%2C6.5 19.0%2C4.5 C 18.0%2C2.5 14.5%2C3.2 12%2C5.5 Z%22 fill=%22%23ffffff%22 stroke=%22%23ffffff%22 stroke-width=%221.8%22 stroke-linejoin=%22round%22/%3E%3C!-- Bottom anchor pair backing --%3E%3Cpath d=%22M 12%2C18.5 C 9.5%2C20.8 6.0%2C21.5 5.0%2C19.5 C 4.2%2C17.5 6.8%2C15.8 12%2C17.2 C 17.2%2C15.8 19.8%2C17.5 19.0%2C19.5 C 18.0%2C21.5 14.5%2C20.8 12%2C18.5 Z%22 fill=%22%23ffffff%22 stroke=%22%23ffffff%22 stroke-width=%221.8%22 stroke-linejoin=%22round%22/%3E%3C!-- Slender Medicinal Stem --%3E%3Cpath d=%22M 12%2C3.5 L 12%2C20.5%22 fill=%22none%22 stroke=%22%23286839%22 stroke-width=%221.8%22 stroke-linecap=%22round%22/%3E%3C!-- Top Cotyledon Pair --%3E%3C!-- Left leaflet --%3E%3Cpath d=%22M 12%2C5.5 C 9.5%2C3.6 6.5%2C3.0 5.4%2C4.6 C 4.8%2C6.0 7.0%2C7.6 12%2C6.2 Z%22 fill=%22%233e8c56%22/%3E%3C!-- Right leaflet --%3E%3Cpath d=%22M 12%2C5.5 C 14.5%2C3.6 17.5%2C3.0 18.6%2C4.6 C 19.2%2C6.0 17.0%2C7.6 12%2C6.2 Z%22 fill=%22%235cb875%22/%3E%3C!-- Bottom Anchor Pair --%3E%3C!-- Left leaflet --%3E%3Cpath d=%22M 12%2C18.5 C 9.5%2C20.4 6.5%2C21.0 5.4%2C19.4 C 4.8%2C18.0 7.0%2C16.4 12%2C17.8 Z%22 fill=%22%233e8c56%22/%3E%3C!-- Right leaflet --%3E%3Cpath d=%22M 12%2C18.5 C 14.5%2C20.4 17.5%2C21.0 18.6%2C19.4 C 19.2%2C18.0 17.0%2C16.4 12%2C17.8 Z%22 fill=%22%235cb875%22/%3E%3C!-- Central Nodal Growth Bud / Dewdrop Bead --%3E%3Ccircle cx=%2212%22 cy=%2212%22 r=%221.4%22 fill=%22%23469b59%22 stroke=%22%23ffffff%22 stroke-width=%220.5%22/%3E%3Ccircle cx=%2211.6%22 cy=%2211.6%22 r=%220.45%22 fill=%22%23ffffff%22/%3E%3C/g%3E%3C/svg%3E') 12 12, text;
+}
+
+/* --- DARK MODE --- */
+html.dark,
+html.dark body,
+html.dark .cursor-default,
+.dark .cursor-default {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3Cfilter id=%22pShdDD%22 x=%22-25%25%22 y=%22-25%25%22 width=%22150%25%22 height=%22150%25%22%3E%3CfeDropShadow dx=%220.5%22 dy=%221.2%22 stdDeviation=%221.1%22 flood-color=%22%23000000%22 flood-opacity=%220.55%22/%3E%3C/filter%3E%3ClinearGradient id=%22pGradUpDD%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%2338bd5f%22/%3E%3Cstop offset=%2260%25%22 stop-color=%22%232ea451%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23195e30%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22pGradLowDD%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%232ea451%22/%3E%3Cstop offset=%2250%25%22 stop-color=%22%23195e30%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230b2e15%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg filter=%22url(%23pShdDD)%22%3E%3C!-- Curved Petiole (Stem) --%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%2305180b%22 stroke-width=%224.2%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%2312421f%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C!-- Complete Outline Silhouette for Contrast --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22%2305180b%22 stroke=%22%2305180b%22 stroke-width=%222.2%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22/%3E%3C!-- Lower Shaded Blade --%3E%3Cpath d=%22M 2.5%2C2.5 L 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22url(%23pGradLowDD)%22/%3E%3C!-- Upper Sunlit Blade --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 L 2.5%2C2.5 Z%22 fill=%22url(%23pGradUpDD)%22/%3E%3C!-- Central Midrib Vein: from apex to sinus --%3E%3Cpath d=%22M 2.5%2C2.5 Q 10.0%2C10.0 17.5%2C17.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%221.15%22 stroke-linecap=%22round%22/%3E%3C!-- Lateral Secondary Veins (Botanically accurate arching venation) --%3E%3C!-- Upper Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 9.0%2C5.0 12.0%2C6.2%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 13.0%2C7.5 17.0%2C9.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 17.0%2C11.2 21.5%2C13.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 18.5%2C14.8 21.5%2C17.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3C!-- Lower Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 5.0%2C9.0 6.2%2C12.0%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 7.5%2C13.0 9.5%2C17.0%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 11.2%2C17.0 13.5%2C21.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 14.8%2C18.5 17.5%2C21.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3C!-- Apex Precision Target Point --%3E%3Ccircle cx=%222.5%22 cy=%222.5%22 r=%220.85%22 fill=%22%23c8fbd6%22/%3E%3C/g%3E%3C/svg%3E') 2 2, auto;
+}
+
+html.dark a,
+html.dark button,
+html.dark [role="button"],
+html.dark [type="button"],
+html.dark [type="submit"],
+html.dark .cursor-pointer,
+html.dark a *,
+html.dark button *,
+html.dark [role="button"] *,
+html.dark .cursor-pointer *,
+.dark a,
+.dark button,
+.dark [role="button"],
+.dark [type="button"],
+.dark [type="submit"],
+.dark .cursor-pointer,
+.dark a *,
+.dark button *,
+.dark [role="button"] *,
+.dark .cursor-pointer * {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3Cfilter id=%22pShdDP%22 x=%22-25%25%22 y=%22-25%25%22 width=%22150%25%22 height=%22150%25%22%3E%3CfeDropShadow dx=%220.5%22 dy=%221.2%22 stdDeviation=%221.1%22 flood-color=%22%23000000%22 flood-opacity=%220.55%22/%3E%3C/filter%3E%3ClinearGradient id=%22pGradUpDP%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%2338bd5f%22/%3E%3Cstop offset=%2260%25%22 stop-color=%22%232ea451%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23195e30%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22pGradLowDP%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%232ea451%22/%3E%3Cstop offset=%2250%25%22 stop-color=%22%23195e30%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230b2e15%22/%3E%3C/linearGradient%3E%3CradialGradient id=%22dewSphDP%22 cx=%2235%25%22 cy=%2232%25%22 r=%2265%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23bae6fd%22/%3E%3Cstop offset=%2230%25%22 stop-color=%22%2338bdf8%22/%3E%3Cstop offset=%2270%25%22 stop-color=%22%230284c7%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230369a1%22/%3E%3C/radialGradient%3E%3CradialGradient id=%22dewCstDP%22 cx=%2268%25%22 cy=%2270%25%22 r=%2238%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23e0f2fe%22 stop-opacity=%220.85%22/%3E%3Cstop offset=%2260%25%22 stop-color=%22%2338bdf8%22 stop-opacity=%220.35%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230284c7%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg filter=%22url(%23pShdDP)%22%3E%3C!-- Curved Petiole (Stem) --%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%2305180b%22 stroke-width=%224.2%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M 17.5%2C17.5 C 20.5%2C21.5 23.5%2C25.0 27.5%2C28.0%22 fill=%22none%22 stroke=%22%2312421f%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C!-- Complete Outline Silhouette for Contrast --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22%2305180b%22 stroke=%22%2305180b%22 stroke-width=%222.2%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22/%3E%3C!-- Lower Shaded Blade --%3E%3Cpath d=%22M 2.5%2C2.5 L 17.5%2C17.5 C 17.8%2C18.0 18.2%2C18.8 18.8%2C19.8 C 20.0%2C22.0 19.2%2C24.8 16.5%2C26.0 C 12.5%2C27.5 8.2%2C26.5 6.5%2C23.0 C 5.0%2C19.5 6.0%2C16.0 8.0%2C13.2 C 7.5%2C11.2 6.5%2C9.2 5.4%2C7.5 C 4.0%2C5.5 2.9%2C3.8 2.5%2C2.5 Z%22 fill=%22url(%23pGradLowDP)%22/%3E%3C!-- Upper Sunlit Blade --%3E%3Cpath d=%22M 2.5%2C2.5 C 3.8%2C2.9 5.5%2C4.0 7.5%2C5.4 C 9.2%2C6.5 11.2%2C7.5 13.2%2C8.0 C 16.0%2C6.0 19.5%2C5.0 23.0%2C6.5 C 26.5%2C8.2 27.5%2C12.5 26.0%2C16.5 C 24.8%2C19.2 22.0%2C20.0 19.8%2C18.8 C 18.8%2C18.2 18.0%2C17.8 17.5%2C17.5 L 2.5%2C2.5 Z%22 fill=%22url(%23pGradUpDP)%22/%3E%3C!-- Central Midrib Vein: from apex to sinus --%3E%3Cpath d=%22M 2.5%2C2.5 Q 10.0%2C10.0 17.5%2C17.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%221.15%22 stroke-linecap=%22round%22/%3E%3C!-- Lateral Secondary Veins (Botanically accurate arching venation) --%3E%3C!-- Upper Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 9.0%2C5.0 12.0%2C6.2%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 13.0%2C7.5 17.0%2C9.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 17.0%2C11.2 21.5%2C13.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 18.5%2C14.8 21.5%2C17.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3C!-- Lower Side --%3E%3Cpath d=%22M 5.8%2C5.8 Q 5.0%2C9.0 6.2%2C12.0%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 8.8%2C8.8 Q 7.5%2C13.0 9.5%2C17.0%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.7%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 12.2%2C12.2 Q 11.2%2C17.0 13.5%2C21.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.65%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3Cpath d=%22M 15.2%2C15.2 Q 14.8%2C18.5 17.5%2C21.5%22 fill=%22none%22 stroke=%22%23a8f0be%22 stroke-width=%220.6%22 stroke-linecap=%22round%22 opacity=%220.9%22/%3E%3C!-- Hyper-Realistic 3D Dewdrop (Ayurvedic Netra Bindu) --%3E%3Cg transform=%22translate(13.8%2C 13.5)%22%3E%3C!-- Soft Ambient Contact Shadow on Blade --%3E%3Cellipse cx=%220.9%22 cy=%221.3%22 rx=%224.4%22 ry=%224.0%22 fill=%22rgba(4%2C 22%2C 10%2C 0.45)%22/%3E%3C!-- Liquid Tension Meniscus Ring --%3E%3Ccircle cx=%220%22 cy=%220%22 r=%224.3%22 fill=%22none%22 stroke=%22%237dd3fc%22 stroke-width=%220.65%22 stroke-dasharray=%222 1%22 opacity=%220.65%22/%3E%3C!-- 3D Refractive Liquid Sphere --%3E%3Ccircle cx=%220%22 cy=%220%22 r=%223.6%22 fill=%22url(%23dewSphDP)%22 stroke=%22%23ffffff%22 stroke-width=%220.75%22/%3E%3C!-- Internal Caustic Glow --%3E%3Ccircle cx=%220%22 cy=%220%22 r=%223.2%22 fill=%22url(%23dewCstDP)%22/%3E%3C!-- Primary Specular Crescent Glint --%3E%3Cellipse cx=%22-1.1%22 cy=%22-1.1%22 rx=%221.3%22 ry=%220.8%22 transform=%22rotate(-40 -1.1 -1.1)%22 fill=%22%23ffffff%22/%3E%3C!-- Secondary Micro Sparkle --%3E%3Ccircle cx=%221.2%22 cy=%221.2%22 r=%220.45%22 fill=%22%23ffffff%22 opacity=%220.95%22/%3E%3C/g%3E%3C!-- Apex Precision Target Point --%3E%3Ccircle cx=%222.5%22 cy=%222.5%22 r=%220.85%22 fill=%22%23c8fbd6%22/%3E%3C/g%3E%3C/svg%3E') 2 2, pointer;
+}
+
+html.dark input,
+html.dark textarea,
+html.dark [contenteditable="true"],
+html.dark .cursor-text,
+html.dark p,
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6,
+html.dark code,
+html.dark pre,
+html.dark blockquote,
+.dark input,
+.dark textarea,
+.dark [contenteditable="true"],
+.dark .cursor-text,
+.dark p,
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark code,
+.dark pre,
+.dark blockquote {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22%3E%3Cdefs%3E%3Cfilter id=%22spShdD%22 x=%22-25%25%22 y=%22-25%25%22 width=%22150%25%22 height=%22150%25%22%3E%3CfeDropShadow dx=%220.5%22 dy=%221%22 stdDeviation=%220.9%22 flood-color=%22%23000000%22 flood-opacity=%220.45%22/%3E%3C/filter%3E%3C/defs%3E%3Cg filter=%22url(%23spShdD)%22%3E%3C!-- Backing High-Contrast Silhouette --%3E%3C!-- Vertical stem backing --%3E%3Cpath d=%22M 12%2C3.5 L 12%2C20.5%22 fill=%22none%22 stroke=%22%2305180b%22 stroke-width=%223.2%22 stroke-linecap=%22round%22/%3E%3C!-- Top cotyledon pair backing --%3E%3Cpath d=%22M 12%2C5.5 C 9.5%2C3.2 6.0%2C2.5 5.0%2C4.5 C 4.2%2C6.5 6.8%2C8.2 12%2C6.8 C 17.2%2C8.2 19.8%2C6.5 19.0%2C4.5 C 18.0%2C2.5 14.5%2C3.2 12%2C5.5 Z%22 fill=%22%2305180b%22 stroke=%22%2305180b%22 stroke-width=%221.8%22 stroke-linejoin=%22round%22/%3E%3C!-- Bottom anchor pair backing --%3E%3Cpath d=%22M 12%2C18.5 C 9.5%2C20.8 6.0%2C21.5 5.0%2C19.5 C 4.2%2C17.5 6.8%2C15.8 12%2C17.2 C 17.2%2C15.8 19.8%2C17.5 19.0%2C19.5 C 18.0%2C21.5 14.5%2C20.8 12%2C18.5 Z%22 fill=%22%2305180b%22 stroke=%22%2305180b%22 stroke-width=%221.8%22 stroke-linejoin=%22round%22/%3E%3C!-- Slender Medicinal Stem --%3E%3Cpath d=%22M 12%2C3.5 L 12%2C20.5%22 fill=%22none%22 stroke=%22%2322c55e%22 stroke-width=%221.8%22 stroke-linecap=%22round%22/%3E%3C!-- Top Cotyledon Pair --%3E%3C!-- Left leaflet --%3E%3Cpath d=%22M 12%2C5.5 C 9.5%2C3.6 6.5%2C3.0 5.4%2C4.6 C 4.8%2C6.0 7.0%2C7.6 12%2C6.2 Z%22 fill=%22%234ade80%22/%3E%3C!-- Right leaflet --%3E%3Cpath d=%22M 12%2C5.5 C 14.5%2C3.6 17.5%2C3.0 18.6%2C4.6 C 19.2%2C6.0 17.0%2C7.6 12%2C6.2 Z%22 fill=%22%2386efac%22/%3E%3C!-- Bottom Anchor Pair --%3E%3C!-- Left leaflet --%3E%3Cpath d=%22M 12%2C18.5 C 9.5%2C20.4 6.5%2C21.0 5.4%2C19.4 C 4.8%2C18.0 7.0%2C16.4 12%2C17.8 Z%22 fill=%22%234ade80%22/%3E%3C!-- Right leaflet --%3E%3Cpath d=%22M 12%2C18.5 C 14.5%2C20.4 17.5%2C21.0 18.6%2C19.4 C 19.2%2C18.0 17.0%2C16.4 12%2C17.8 Z%22 fill=%22%2386efac%22/%3E%3C!-- Central Nodal Growth Bud / Dewdrop Bead --%3E%3Ccircle cx=%2212%22 cy=%2212%22 r=%221.4%22 fill=%22%2386efac%22 stroke=%22%2305180b%22 stroke-width=%220.5%22/%3E%3Ccircle cx=%2211.6%22 cy=%2211.6%22 r=%220.45%22 fill=%22%23ffffff%22/%3E%3C/g%3E%3C/svg%3E') 12 12, text;
+}
+
+/* Disabled elements state for both modes */
+button:disabled,
+button:disabled *,
+[disabled],
+[disabled] *,
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
+/* Selection styling */
+html:not(.dark) ::selection {
+  background-color: oklch(0.48 0.14 155 / 0.25);
+  color: oklch(0.12 0.02 165);
+}
+
+html.dark ::selection {
+  background-color: oklch(0.65 0.15 155 / 0.35);
+  color: oklch(0.99 0 0);
+}
+
+/* Interactive Water Droplet Ripple Animation on Click */
+@keyframes water-drop-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.85;
+  }
+  60% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.5);
+    opacity: 0;
+  }
+}
+
+.water-drop-ripple {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid rgba(2, 132, 199, 0.6);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0.05) 60%, transparent 80%);
+  animation: water-drop-ripple 0.55s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+html.dark .water-drop-ripple {
+  border-color: rgba(56, 189, 248, 0.8);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(56, 189, 248, 0.1) 60%, transparent 80%);
+}
+
