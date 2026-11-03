@@ -1,94 +1,107 @@
-// Phase 1 — D4: Polish — theme toggle + mobile responsive
+// Phase 2 — D8: Connected UI to /api/chat with Vercel AI SDK useChat()
 
 "use client";
 
 import { cn } from "@/lib/utils";
 import { ChatMessage } from "@/types";
-import { ArrowLeft } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useChat } from "@ai-sdk/react";
+import type { UIMessage } from "ai";
+import { AlertCircle, ArrowLeft, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ChatInput from "./chat-input";
 import MessageList from "./message-list";
 import ThemeToggle from "./theme-toggle";
 
-// Sreedhareeyam-specific mock responses (Phase 1 — D5: rich markdown to exercise renderer)
-const MOCK_RESPONSES = [
-  `## About Sreedhareeyam
-
-**Sreedhareeyam Ayurvedic Eye Hospital & Research Centre** is based in Koothattukulam, Kerala. It specialises in traditional **Netra Chikitsa** (Ayurvedic ophthalmology) combined with modern diagnostics.
-
-> Founded by the ancestral *Nelliakkattu Mana* physician family, the hospital has treated complex eye conditions for generations.`,
-
-  `## Key Treatments Offered
-
-Sreedhareeyam provides specialised therapies for conditions such as:
-
-- **Diabetic Retinopathy** — Netra Tarpana & Seka
-- **Glaucoma** — Aschyothana & herbal formulations
-- **Macular Degeneration** — Integrated Ayurvedic protocols
-- **Dry Eye Syndrome** — Netra Tarpana with medicated ghee
-- **Computer Vision Syndrome** — Lifestyle + herbal support
-
-All treatments are **non-invasive** and grounded in classical Ayurvedic texts.`,
-
-  `## Sunetra Eye Drops
-
-Sreedhareeyam manufactures \`Sunetra\` — authentic herbal eye drops prepared from:
-
-| Ingredient | Benefit |
-|---|---|
-| **Triphala** | Antioxidant, strengthens eye muscles |
-| **Tulsi** | Anti-inflammatory, soothes irritation |
-| **Rose Water** | Cooling, relieves dryness |
-
-> *Sunetra is one of their most popular proprietary formulations for digital eye strain.*`,
-
-  `## Heritage & Legacy
-
-The roots of Sreedhareeyam trace back to the **Nelliakkattu Mana** — a renowned ancestral Ayurvedic physician family from Kerala.
-
-### Why it matters
-
-1. Centuries of specialised ophthalmic knowledge
-2. Classical formulations passed through generations
-3. Combination of traditional wisdom with evidence-based research
-
-This unique heritage makes Sreedhareeyam one of the **most trusted** Ayurvedic eye care centres in India.`,
-
-  `## Disclaimer
-
-*(This is an independent RAG educational project and is **not** affiliated with or endorsed by Sreedhareeyam Ayurvedic Eye Hospital.)*
-
----
-
-Sreedhareeyam also operates:
-- Wellness centres across India
-- Outpatient (OP) clinics in major cities
-- An online consultation service
-
-Visit [sreedhareeyam.com](https://www.sreedhareeyam.com) for official information.`,
-];
-
-let mockIndex = 0;
-function getNextMockResponse(): string {
-  const response = MOCK_RESPONSES[mockIndex % MOCK_RESPONSES.length];
-  mockIndex++;
-  return response;
+function getUIMessageText(msg: UIMessage): string {
+  if (!msg.parts || msg.parts.length === 0) return "";
+  return msg.parts
+    .filter((p): p is { type: "text"; text: string } => p.type === "text")
+    .map((p) => p.text)
+    .join("");
 }
 
 export default function ChatContainer() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const abortControllerRef = useRef<AbortController | null>(null);
+  const [inputText, setInputText] = useState("");
+  const lastPromptRef = useRef("");
+  const prevErrorRef = useRef<Error | undefined>(undefined);
+
+  const {
+    messages: rawMessages,
+    sendMessage,
+    status,
+    stop,
+    setMessages: setRawMessages,
+    error,
+    clearError,
+  } = useChat({
+    onError: (err) => {
+      console.error("Chat streaming error:", err);
+      // Refill the input field with the user's message once so they can retry
+      if (lastPromptRef.current) {
+        setInputText(lastPromptRef.current);
+        lastPromptRef.current = "";
+      }
+      // Remove the failed user message from the conversation list
+      setRawMessages((prev) => {
+        const last = prev[prev.length - 1];
+        if (last?.role === "assistant") {
+          return prev.slice(0, -2);
+        } else if (last?.role === "user") {
+          return prev.slice(0, -1);
+        }
+        return prev;
+      });
+    },
+  });
+
+  const isLoading = status === "submitted" || status === "streaming";
   const chatPushedRef = useRef(false);
-  const hasConversation = messages?.length > 0;
+
+  // Sync refilled prompt once on error transition
+  useEffect(() => {
+    if (!prevErrorRef.current && error) {
+      if (lastPromptRef.current) {
+        setInputText(lastPromptRef.current);
+        lastPromptRef.current = "";
+      }
+      setRawMessages((prev) => {
+        const last = prev[prev.length - 1];
+        if (last?.role === "assistant") {
+          return prev.slice(0, -2);
+        } else if (last?.role === "user") {
+          return prev.slice(0, -1);
+        }
+        return prev;
+      });
+    }
+    prevErrorRef.current = error;
+  }, [error, setRawMessages]);
+
+  // Convert AI SDK UIMessages into our ChatMessage structure
+  const messages: ChatMessage[] = useMemo(() => {
+    return rawMessages
+      .filter((m) => {
+        if (m.role !== "user" && m.role !== "assistant") return false;
+        // Keep assistant messages only once they have started streaming text
+        if (m.role === "assistant" && !getUIMessageText(m)) return false;
+        return true;
+      })
+      .map((m) => ({
+        id: m.id,
+        role: m.role as "user" | "assistant",
+        content: getUIMessageText(m),
+        createdAt: new Date(),
+      }));
+  }, [rawMessages]);
+
+  const hasConversation = messages.length > 0;
 
   function handleReset() {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-      abortControllerRef.current = null;
-    }
-    setIsLoading(false);
-    setMessages([]);
+    stop();
+    setRawMessages([]);
+    clearError();
+    setInputText("");
+    lastPromptRef.current = "";
 
     if (typeof window !== "undefined") {
       window.getSelection()?.removeAllRanges();
@@ -104,19 +117,17 @@ export default function ChatContainer() {
 
   // Handle browser back button (popstate)
   useEffect(() => {
-    // If page reloaded with stale chat state while on home screen, clear it
     if (typeof window !== "undefined" && window.history.state?.chat) {
       window.history.replaceState(null, "");
     }
 
     function handlePopState() {
       chatPushedRef.current = false;
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-        abortControllerRef.current = null;
-      }
-      setIsLoading(false);
-      setMessages([]);
+      stop();
+      setRawMessages([]);
+      clearError();
+      setInputText("");
+      lastPromptRef.current = "";
       window.getSelection()?.removeAllRanges();
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
@@ -126,67 +137,24 @@ export default function ChatContainer() {
     window.addEventListener("popstate", handlePopState);
     return () => {
       window.removeEventListener("popstate", handlePopState);
-      abortControllerRef.current?.abort();
+      stop();
     };
-  }, []);
+  }, [stop, setRawMessages, clearError]);
 
   async function handleSend(text: string) {
-    // Abort any pending operation
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
+    const trimmed = text.trim();
+    if (!trimmed || isLoading) return;
 
-    // Push history state on conversation initialization
+    lastPromptRef.current = trimmed;
+    setInputText("");
+
     if (!chatPushedRef.current && typeof window !== "undefined") {
       window.history.pushState({ chat: true }, "");
       chatPushedRef.current = true;
     }
 
-    // 1. Append the user message immediately
-    const userMessage: ChatMessage = {
-      id: Date.now().toString() + Math.random().toString(36).substring(2),
-      role: "user",
-      content: text,
-      createdAt: new Date(),
-    };
-    setMessages((prev) => [...prev, userMessage]);
-
-    // 2. Show loading indicator
-    setIsLoading(true);
-
-    try {
-      // 3. Simulate delay cancellable via abort signal
-      await new Promise<void>((resolve, reject) => {
-        const timer = setTimeout(resolve, 500 + Math.random() * 700);
-        controller.signal.addEventListener("abort", () => {
-          clearTimeout(timer);
-          reject(new DOMException("Aborted", "AbortError"));
-        });
-      });
-
-      if (controller.signal.aborted) return;
-
-      // 4. Append mock assistant reply
-      const assistantMessage: ChatMessage = {
-        id: Date.now().toString() + Math.random().toString(36).substring(2),
-        role: "assistant",
-        content: getNextMockResponse(),
-        createdAt: new Date(),
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch {
-      // Aborted or cancelled — exit silently
-      if (controller.signal.aborted) return;
-    } finally {
-      if (abortControllerRef.current === controller) {
-        abortControllerRef.current = null;
-      }
-      if (!controller.signal.aborted) {
-        setIsLoading(false);
-      }
-    }
+    clearError();
+    await sendMessage({ text: trimmed });
   }
 
   return (
@@ -262,9 +230,34 @@ export default function ChatContainer() {
         onSelectPrompt={handleSend}
       />
 
+      {/* Error Banner */}
+      {error && (
+        <div className="mx-4 sm:mx-6 lg:mx-8 mb-2 p-3 rounded-2xl bg-destructive/10 border border-destructive/25 text-destructive text-sm flex items-center justify-between gap-3 shadow-xs animate-message-appear">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <AlertCircle className="h-4 w-4 shrink-0 text-destructive" />
+            <p className="truncate font-medium">
+              An error has occured. Please retry.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => clearError()}
+            className="p-1 rounded-lg hover:bg-destructive/10 transition-colors shrink-0 cursor-pointer"
+            aria-label="Dismiss error"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      )}
+
       {/* Floating Input Dock */}
       <div className="shrink-0">
-        <ChatInput onSend={handleSend} isLoading={isLoading} />
+        <ChatInput
+          value={inputText}
+          onChange={setInputText}
+          onSend={handleSend}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );

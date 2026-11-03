@@ -195,21 +195,23 @@ export default function MessageList({
             <MessageBubble key={msg?.id} message={msg} />
           ))}
 
-          {/* Typing indicator */}
-          {isLoading && (
-            <div className="flex items-start gap-3 animate-message-appear">
-              <Avatar className="h-8 w-8 shrink-0 mt-0.5 rounded-xl border border-border/50 shadow-xs">
-                <AvatarFallback className="rounded-xl text-sm font-semibold flex items-center justify-center bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                  <Bot className="h-4 w-4" />
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-xs bg-card border border-border/70 dark:bg-[#1a2428] dark:border-border/40 px-4 py-3 shadow-xs">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0ms]" />
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:150ms]" />
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:300ms]" />
+          {/* Typing indicator — shows while waiting for the model to start streaming */}
+          {isLoading &&
+            (messages.length === 0 ||
+              messages[messages.length - 1]?.role !== "assistant") && (
+              <div className="flex items-start gap-3 animate-message-appear">
+                <Avatar className="h-8 w-8 shrink-0 mt-0.5 rounded-xl border border-border/50 shadow-xs">
+                  <AvatarFallback className="rounded-xl text-sm font-semibold flex items-center justify-center bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <Bot className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-xs bg-card border border-border/70 dark:bg-[#1a2428] dark:border-border/40 px-4 py-3 shadow-xs">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0ms]" />
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:150ms]" />
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:300ms]" />
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       )}
     </div>

@@ -10,17 +10,32 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 interface ChatInputProps {
   onSend: (message: string) => void;
   isLoading?: boolean;
+  value?: string;
+  onChange?: (val: string) => void;
 }
 
 export default function ChatInput({
   onSend,
   isLoading = false,
+  value: controlledValue,
+  onChange: controlledOnChange,
 }: ChatInputProps) {
-  const [value, setValue] = useState("");
+  const [internalValue, setInternalValue] = useState("");
+  const isControlled = controlledValue !== undefined;
+  const value = isControlled ? controlledValue : internalValue;
+
+  const setValue = (val: string) => {
+    if (isControlled) {
+      controlledOnChange?.(val);
+    } else {
+      setInternalValue(val);
+    }
+  };
+
   const inputRef = useRef<HTMLInputElement>(null);
   const prevLoadingRef = useRef(isLoading);
 
-  // Auto-focus input field after AI response completes (desktop only, to avoid virtual keyboard pop-up on mobile)
+  // Auto-focus input field after AI response or error completes (desktop only)
   useEffect(() => {
     if (prevLoadingRef.current && !isLoading) {
       const isTouchMobile =
