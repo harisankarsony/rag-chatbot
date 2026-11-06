@@ -1,6 +1,7 @@
 // Phase 2 — D7 & D8: API route + streaming with Vercel AI SDK
 // Accepts a conversation, converts UI messages to model messages,
-// and streams a Gemini response back via toUIMessageStreamResponse().
+// and streams a Gemini response back via createUIMessageStreamResponse().
+// Model: gemini-3.5-flash-lite (free-tier default). Override via GEMINI_MODEL env var.
 //
 // RAG wiring (embed → vector search → context injection) is added in D15.
 // For now the system prompt uses a placeholder context so the bot works as
@@ -45,13 +46,13 @@ export async function POST(request: Request) {
           Array.isArray(m.parts) && m.parts.length > 0
             ? m.parts
             : [{ type: "text", text: m.content ?? "" }],
-      })
+      }),
     );
 
     const modelMessages = await convertToModelMessages(normalizedMessages);
 
     const result = streamText({
-      model: google("gemini-3.5-flash"),
+      model: google(process.env.GEMINI_MODEL ?? "gemini-3.5-flash-lite"),
       system: buildSystemPrompt(placeholderContext),
       messages: modelMessages,
     });
@@ -80,7 +81,7 @@ export async function POST(request: Request) {
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   }
 }

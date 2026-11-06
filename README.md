@@ -218,7 +218,7 @@ Run locally with `npx tsx scripts/ingest.ts`:
 | **Styling**    | Tailwind CSS + shadcn/ui                   | Responsive, polished UI       |
 | **Chat Hook**  | Vercel AI SDK (`useChat`)                  | Client-side streaming + state |
 | **API**        | Next.js Route Handlers                     | Serverless backend            |
-| **LLM**        | Gemini 2.0 Flash                           | Answer generation             |
+| **LLM**        | Gemini 3.5 Flash Lite                      | Answer generation             |
 | **Embeddings** | Gemini `text-embedding-004`                | Text → vector conversion      |
 | **Vector DB**  | Upstash Vector                             | Serverless similarity search  |
 | **Scraping**   | Firecrawl                                  | Website → clean markdown      |
