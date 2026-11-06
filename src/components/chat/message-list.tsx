@@ -193,9 +193,19 @@ export default function MessageList({
         </div>
       ) : (
         <div className="flex flex-col gap-5 w-full">
-          {messages?.map((msg) => (
-            <MessageBubble key={msg?.id} message={msg} />
-          ))}
+          {messages?.map((msg, index) => {
+            const isLast = index === messages.length - 1;
+            const isStreaming = Boolean(
+              isLoading && isLast && msg.role === "assistant",
+            );
+            return (
+              <MessageBubble
+                key={msg?.id}
+                message={msg}
+                isStreaming={isStreaming}
+              />
+            );
+          })}
 
           {/* Typing indicator — shows while waiting for the model to start streaming */}
           {isLoading &&
@@ -208,9 +218,18 @@ export default function MessageList({
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-xs bg-card border border-border/70 dark:bg-[#1a2428] dark:border-border/40 px-4 py-3 shadow-xs">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:0ms]" />
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:150ms]" />
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:300ms]" />
+                  <span
+                    className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce"
+                    style={{ animationDelay: "0ms" }}
+                  />
+                  <span
+                    className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce"
+                    style={{ animationDelay: "150ms" }}
+                  />
+                  <span
+                    className="h-2 w-2 rounded-full bg-emerald-500 animate-bounce"
+                    style={{ animationDelay: "300ms" }}
+                  />
                 </div>
               </div>
             )}
