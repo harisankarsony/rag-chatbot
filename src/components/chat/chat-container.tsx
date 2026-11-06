@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ChatMessage } from "@/types";
 import { useChat } from "@ai-sdk/react";
 import type { UIMessage } from "ai";
-import { AlertCircle, ArrowLeft, X } from "lucide-react";
+import { AlertCircle, AlertTriangle, ArrowLeft, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import ChatInput from "./chat-input";
 import MessageList from "./message-list";
@@ -22,6 +22,7 @@ function getUIMessageText(msg: UIMessage): string {
 
 export default function ChatContainer() {
   const [inputText, setInputText] = useState("");
+  const [showDevWarning, setShowDevWarning] = useState(true);
   const lastPromptRef = useRef("");
   const prevErrorRef = useRef<Error | undefined>(undefined);
 
@@ -244,6 +245,28 @@ export default function ChatContainer() {
             onClick={() => clearError()}
             className="p-1 rounded-lg hover:bg-destructive/10 transition-colors shrink-0 cursor-pointer"
             aria-label="Dismiss error"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      )}
+
+      {/* Development Phase / Wrapper Warning Banner. Remove or update once RAG implementation is complete */}
+      {showDevWarning && (
+        <div className="mx-4 sm:mx-6 lg:mx-8 mb-2 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25 dark:bg-amber-500/15 dark:border-amber-500/30 text-amber-800 dark:text-amber-200 text-sm flex items-center justify-between gap-3 shadow-xs animate-message-appear">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+            <p className="font-medium text-xs sm:text-sm leading-snug">
+              Please note that this app is in development: Direct Gemini
+              streaming is active, but website scraping and RAG retrieval from
+              sreedhareeyam.com are still pending.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowDevWarning(false)}
+            className="p-1 rounded-lg hover:bg-amber-500/15 dark:hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 transition-colors shrink-0 cursor-pointer"
+            aria-label="Dismiss development notice"
           >
             <X className="h-3.5 w-3.5" />
           </button>
