@@ -32,13 +32,22 @@ export async function POST(request: Request) {
     const { messages } = await request.json();
 
     // D15 will replace this with real retrieved chunks from Upstash Vector.
-    const placeholderContext =
-      "No context available yet. Answer based on general Ayurvedic knowledge " +
-      "about Sreedhareeyam and politely note that the knowledge base is still " +
-      "being set up.";
+    // For D9, calling buildSystemPrompt() without context enables the authentic
+    // Sreedhareeyam Guide persona and foundational Ayurvedic consultation mode.
+    const context = undefined;
 
     // Ensure messages array is well-formed with parts for convertToModelMessages
-    const normalizedMessages: UIMessage[] = (messages ?? []).map(
+    const rawList: IncomingMessage[] = Array.isArray(messages) ? messages : [];
+
+    // Sliding window: keep the last 20 messages to manage context length & free-tier tokens
+    const recentMessages = rawList.slice(-20);
+
+    // Ensure the message history starts with a user turn if possible
+    const firstUserIndex = recentMessages.findIndex((m) => m.role === "user");
+    const trimmedList =
+      firstUserIndex !== -1 ? recentMessages.slice(firstUserIndex) : recentMessages;
+
+    const normalizedMessages: UIMessage[] = trimmedList.map(
       (m: IncomingMessage): UIMessage => ({
         id: m.id || String(Date.now()),
         role: m.role || "user",
@@ -53,7 +62,7 @@ export async function POST(request: Request) {
 
     const result = streamText({
       model: google(process.env.GEMINI_MODEL ?? "gemini-3.5-flash-lite"),
-      system: buildSystemPrompt(placeholderContext),
+      system: buildSystemPrompt(context),
       messages: modelMessages,
     });
 

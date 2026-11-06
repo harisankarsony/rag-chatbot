@@ -339,7 +339,7 @@ Connect Gemini via Vercel AI SDK for real conversational AI.
 | **D6** | API keys & clients - done    | 2     | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts`             |
 | **D7** | API route + streaming - done | 4     | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response           |
 | **D8** | Connect UI to API - done     | 3     | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading                            |
-| **D9** | System prompt & polish       | 3     | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
+| **D9** | System prompt & polish - done | 3     | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
 
 **Milestone:** A working AI chatbot powered by Gemini — general knowledge, no RAG yet.
 
