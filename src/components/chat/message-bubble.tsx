@@ -45,7 +45,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         )}
       >
         {isUser ? (
-          message.content
+          <p>{message.content}</p>
         ) : (
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -104,11 +104,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
               code: ({ children, className }) => {
                 const isBlock = Boolean(className);
                 if (isBlock) {
-                  return (
-                    <code className={className}>
-                      {children}
-                    </code>
-                  );
+                  return <code className={className}>{children}</code>;
                 }
                 return (
                   <code className="rounded-md bg-emerald-500/10 dark:bg-emerald-500/15 px-1.5 py-0.5 font-mono text-[0.8em] text-emerald-700 dark:text-emerald-300">
@@ -142,7 +138,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
+                  className="cursor-pointer font-medium underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
                 >
                   {children}
                 </a>

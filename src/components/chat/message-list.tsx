@@ -161,8 +161,10 @@ export default function MessageList({
           </p>
           <div className="inline-flex text-center align-middle items-center gap-2 rounded-full bg-muted/80 dark:bg-amber-500/[0.08] border border-amber-500/40 dark:border-amber-500/35 px-3 py-1.5 text-xs text-muted-foreground dark:text-amber-200/85 mb-6 max-w-full select-none">
             <span className="leading-snug text-center select-none">
-              Independent RAG learning project · Not officially affiliated with
-              Sreedhareeyam
+              <p>
+                Independent RAG learning project · Not officially affiliated
+                with Sreedhareeyam
+              </p>
             </span>
           </div>
 

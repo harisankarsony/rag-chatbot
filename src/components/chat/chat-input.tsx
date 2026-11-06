@@ -61,7 +61,7 @@ export default function ChatInput({
   }
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 lg:pb-3 pb-4 pt-3 backdrop-blur-md bg-background-overlay border-t border-border/50">
+    <div className="w-full px-4 sm:px-6 lg:px-8 pb-5 lg:pb-7 pt-3 backdrop-blur-md bg-background-overlay border-t border-border/50">
       <form
         onSubmit={handleSubmit}
         onClick={(e) => {
@@ -134,7 +134,7 @@ export default function ChatInput({
           href="https://github.com/harisankarsony"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
+          className="cursor-pointer underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
         >
           harisankarsony
         </a>

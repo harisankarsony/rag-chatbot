@@ -200,10 +200,10 @@ export default function ChatContainer() {
                   "text-base font-semibold tracking-tight text-foreground outline-none",
                 )}
               >
-                Sreedhareeyam Guide
+                <p>Sreedhareeyam Guide</p>
               </span>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 ">
-                RAG Chatbot
+                <p>RAG Chatbot</p>
               </span>
             </div>
             <p className="text-xs text-muted-foreground mt-0.75 ">
@@ -212,7 +212,7 @@ export default function ChatContainer() {
                 href="https://www.sreedhareeyam.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
+                className="cursor-pointer underline underline-offset-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-none hover:transition-colors hover:duration-150"
               >
                 sreedhareeyam.com
               </a>{" "}
