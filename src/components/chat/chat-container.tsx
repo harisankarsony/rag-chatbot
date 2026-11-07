@@ -91,7 +91,6 @@ export default function ChatContainer() {
         id: m.id,
         role: m.role as "user" | "assistant",
         content: getUIMessageText(m),
-        createdAt: new Date(),
       }));
   }, [rawMessages]);
 
@@ -165,15 +164,16 @@ export default function ChatContainer() {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={handleReset}
+            onClick={hasConversation ? handleReset : undefined}
+            tabIndex={hasConversation ? 0 : -1}
             className={cn(
               "relative flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs outline-none shrink-0 overflow-hidden",
               hasConversation
                 ? "hover:bg-emerald-500/20 transition-colors cursor-pointer"
-                : "",
+                : "cursor-default pointer-events-none",
             )}
             title={hasConversation ? "Back to home" : ""}
-            aria-label={hasConversation ? "Back to home" : ""}
+            aria-label={hasConversation ? "Back to home" : "Sreedhareeyam Guide"}
           >
             <span
               className={`text-lg transition-all duration-300 ease-in-out ${

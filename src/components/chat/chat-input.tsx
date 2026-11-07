@@ -4,7 +4,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowUp, X } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 interface ChatInputProps {
@@ -125,7 +125,7 @@ export default function ChatInput({
           aria-label="Send message"
           title="Send message"
         >
-          <ArrowUp className="h-4 w-4 stroke-[2.5]" />
+          <ArrowRight className="h-4 w-4 stroke-[2.5]" />
         </Button>
       </form>
       <p className="mt-3 text-center text-xs text-muted-foreground/60 tracking-tight">

@@ -3,7 +3,8 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { ChatMessage } from "@/types";
-import { Bot, User } from "lucide-react";
+import { Bot, Check, Copy, User } from "lucide-react";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -12,11 +13,41 @@ interface MessageBubbleProps {
   isStreaming?: boolean;
 }
 
+function formatTime(date?: Date): string {
+  if (!date) return "";
+  try {
+    const d = date instanceof Date ? date : new Date(date);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } catch {
+    return "";
+  }
+}
+
 export default function MessageBubble({
   message,
   isStreaming = false,
 }: MessageBubbleProps) {
   const isUser = message.role === "user";
+  const [copied, setCopied] = useState(false);
+  const [timeString] = useState(() =>
+    formatTime(message.createdAt || new Date()),
+  );
+
+  const handleCopy = async () => {
+    if (!message.content) return;
+    try {
+      await navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy message:", err);
+    }
+  };
 
   return (
     <div
@@ -49,7 +80,32 @@ export default function MessageBubble({
         )}
       >
         {isUser ? (
-          <p>{message.content}</p>
+          <>
+            <p className="whitespace-pre-wrap">{message.content}</p>
+            <div className="flex items-center justify-end gap-1.5 mt-2 pt-1.5 border-t border-emerald-900/15 dark:border-emerald-300/30 text-xs select-none">
+              {timeString && (
+                <time
+                  suppressHydrationWarning
+                  className="text-[0.68rem] font-medium tracking-tight text-[#111b21]/60 dark:text-[#e9edef]/60"
+                >
+                  {timeString}
+                </time>
+              )}
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="inline-flex items-center p-0.5 rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer text-[#111b21]/60 dark:text-[#e9edef]/60 hover:text-[#111b21] dark:hover:text-[#e9edef] active:scale-95"
+                aria-label={copied ? "Copied to clipboard" : "Copy message"}
+                title={copied ? "Copied!" : "Copy message"}
+              >
+                {copied ? (
+                  <Check className="h-3 w-3 text-emerald-800 dark:text-emerald-200 stroke-[2.5]" />
+                ) : (
+                  <Copy className="h-3 w-3 stroke-[2]" />
+                )}
+              </button>
+            </div>
+          </>
         ) : (
           <>
             <ReactMarkdown
@@ -207,6 +263,37 @@ export default function MessageBubble({
                 />
               </span>
             )}
+
+            {/* Assistant Bubble Footer: Timestamp & Copy Button */}
+            <div className="flex items-center justify-between gap-3 mt-2.5 pt-2 border-t border-border/80 dark:border-zinc-700 text-xs text-muted-foreground select-none">
+              {timeString ? (
+                <time
+                  suppressHydrationWarning
+                  className="text-[0.68rem] font-medium tracking-tight text-muted-foreground/75"
+                >
+                  {timeString}
+                </time>
+              ) : (
+                <span />
+              )}
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md hover:bg-muted dark:hover:bg-zinc-800 text-muted-foreground hover:text-foreground transition-colors cursor-pointer text-[0.7rem] font-medium active:scale-95"
+                aria-label={copied ? "Copied to clipboard" : "Copy response"}
+                title={copied ? "Copied!" : "Copy response"}
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400 stroke-[2.5]" />
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3 w-3 stroke-2" />
+                  </>
+                )}
+              </button>
+            </div>
           </>
         )}
       </div>
