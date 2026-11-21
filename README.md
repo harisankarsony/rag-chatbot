@@ -13,13 +13,13 @@ flowchart TD
     subgraph Ingestion["📥 Data Ingestion Pipeline (One-time / Local Script)"]
         A["🌐 Target Website"] -->|Firecrawl API| B["📄 Raw Markdown Pages"]
         B -->|LangChain TextSplitters| C["✂️ Text Chunks"]
-        C -->|Gemini text-embedding-004| D["🔢 Vector Embeddings"]
+        C -->|Gemini text-embedding-001| D["🔢 Vector Embeddings"]
         D -->|Upstash Vector REST API| E["💾 Vector Store"]
     end
 
     subgraph Runtime["⚡ Query Pipeline (Runtime — Vercel Serverless)"]
         F["👤 User Question"] -->|Chat UI| G["Next.js API Route /api/chat"]
-        G -->|Gemini text-embedding-004| H["🔢 Query Embedding"]
+        G -->|Gemini text-embedding-001| H["🔢 Query Embedding"]
         H -->|Similarity Search| E
         E -->|Top-K Chunks| I["📋 Context Assembly"]
         I -->|System Prompt + Context + Question| J["🤖 Gemini Flash"]
@@ -65,7 +65,7 @@ sequenceDiagram
 | ---------- | -------------------------------- | ------------------------------------------------ |
 | **Scrape** | Firecrawl                        | Crawl target site, get clean markdown per page   |
 | **Chunk**  | `RecursiveCharacterTextSplitter` | ~500-1000 chars per chunk, ~200 char overlap     |
-| **Embed**  | Gemini `text-embedding-004`      | 768-dimension vectors (free tier)                |
+| **Embed**  | Gemini `text-embedding-001`      | 768-dimension vectors (free tier)                |
 | **Store**  | Upstash Vector                   | REST-based, serverless, stores vector + metadata |
 
 > [!TIP]
@@ -219,7 +219,7 @@ Run locally with `npx tsx scripts/ingest.ts`:
 | **Chat Hook**  | Vercel AI SDK (`useChat`)                  | Client-side streaming + state |
 | **API**        | Next.js Route Handlers                     | Serverless backend            |
 | **LLM**        | Gemini 3.5 Flash Lite                      | Answer generation             |
-| **Embeddings** | Gemini `text-embedding-004`                | Text → vector conversion      |
+| **Embeddings** | Gemini `text-embedding-001`                | Text → vector conversion      |
 | **Vector DB**  | Upstash Vector                             | Serverless similarity search  |
 | **Scraping**   | Firecrawl                                  | Website → clean markdown      |
 | **Chunking**   | LangChain `RecursiveCharacterTextSplitter` | Split text for embedding      |
@@ -240,7 +240,7 @@ User types "How does X work?"
           │
           ▼
    ┌─────────────────┐
-   │  Embed query     │  ← Gemini text-embedding-004
+   │  Embed query     │  ← Gemini text-embedding-001
    │  (768-dim vec)   │
    └──────┬───────────┘
           │
@@ -334,11 +334,11 @@ Build a fully functional chat interface — no AI yet, just the shell.
 
 Connect Gemini via Vercel AI SDK for real conversational AI.
 
-| Day    | Task                         | Hours | Details                                                                                                                                     |
-| ------ | ---------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D6** | API keys & clients - done    | 2     | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts`             |
-| **D7** | API route + streaming - done | 4     | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response           |
-| **D8** | Connect UI to API - done     | 3     | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading                            |
+| Day    | Task                          | Hours | Details                                                                                                                                     |
+| ------ | ----------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D6** | API keys & clients - done     | 2     | Get Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). Create `.env.local`. Set up `src/lib/gemini.ts`             |
+| **D7** | API route + streaming - done  | 4     | Build `src/app/api/chat/route.ts` — accept messages, call Gemini via `@ai-sdk/google` + `streamText()`, return streaming response           |
+| **D8** | Connect UI to API - done      | 3     | Replace mock logic with Vercel AI SDK's `useChat()` hook. Wire to `/api/chat`. Handle streaming, errors, loading                            |
 | **D9** | System prompt & polish - done | 3     | Craft a system prompt in `src/lib/prompts.ts` (persona for Sreedhareeyam assistant). Add conversation history support. Test multi-turn chat |
 
 **Milestone:** A working AI chatbot powered by Gemini — general knowledge, no RAG yet.
@@ -354,18 +354,19 @@ Connect Gemini via Vercel AI SDK for real conversational AI.
 
 Build the data ingestion pipeline — scrape, chunk, embed, store.
 
-| Day     | Task                | Hours | Details                                                                                                                                                                                                 |
-| ------- | ------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **D10** | Set up services     | 3     | Create [Upstash Vector](https://console.upstash.com/) index (768 dimensions, cosine metric). Get [Firecrawl](https://www.firecrawl.dev/) API key. Add keys to `.env.local`. Set up `src/lib/upstash.ts` |
-| **D11** | Scraping script     | 3     | Build `scripts/ingest.ts` — use Firecrawl to crawl `https://www.sreedhareeyam.com/`. Log pages found, inspect markdown output quality                                                                   |
-| **D12** | Chunking            | 3     | Add `RecursiveCharacterTextSplitter` (800 chars, 200 overlap). Split scraped markdown into chunks. Log chunk count and sample chunks                                                                    |
-| **D13** | Embedding & storage | 3     | Use Gemini `text-embedding-004` to embed each chunk. Batch upsert into Upstash Vector with metadata (text, source URL, title). Build `scripts/clear-index.ts` utility                                   |
-| **D14** | Verify & iterate    | 2     | Query Upstash Vector manually with test queries. Check if relevant chunks are returned. Re-tune chunk size/overlap if needed                                                                            |
+| Day     | Task                       | Hours | Details                                                                                                                                                                                                 |
+| ------- | -------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **D10** | Set up services - done     | 3     | Create [Upstash Vector](https://console.upstash.com/) index (768 dimensions, cosine metric). Get [Firecrawl](https://www.firecrawl.dev/) API key. Add keys to `.env.local`. Set up `src/lib/upstash.ts` |
+| **D11** | Scraping script - done     | 3     | Build `scripts/ingest.ts` — use Firecrawl to crawl `https://www.sreedhareeyam.com/`. Log pages found, inspect markdown output quality                                                                   |
+| **D12** | Chunking - done            | 3     | Add `RecursiveCharacterTextSplitter` (800 chars, 200 overlap). Split scraped markdown into chunks. Log chunk count and sample chunks                                                                    |
+| **D13** | Embedding & storage - done | 3     | Use Gemini `text-embedding-001` to embed each chunk. Batch upsert into Upstash Vector with metadata (text, source URL, title). Build `scripts/clear-index.ts` utility                                   |
+| **D14** | Verify & iterate           | 2     | Query Upstash Vector manually with test queries. Check if relevant chunks are returned. Re-tune chunk size/overlap if needed                                                                            |
 
 **Milestone:** Sreedhareeyam website content is fully indexed in Upstash Vector.
 
 ```
-✅ Checkpoint: Run `npx tsx scripts/ingest.ts` and see all chunks stored.
+✅ Checkpoint: Run `pnpm run ingest
+ *            (or: npx tsx --env-file=.env.local scripts/ingest.ts)` and see all chunks stored.
    Query Upstash dashboard to verify vectors exist with correct metadata.
 ```
 

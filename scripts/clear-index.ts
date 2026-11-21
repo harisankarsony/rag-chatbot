@@ -1,15 +1,30 @@
 /**
  * Utility script — wipes all vectors from the Upstash index.
- * Run with: npx tsx scripts/clear-index.ts
+ * Run with:  pnpm run clear-index
+ *            (or: npx tsx --env-file=.env.local scripts/clear-index.ts)
  *
- * TODO (Phase 3 — D13): Implement reset/delete-all logic
+ * ⚠️  This is irreversible — you'll need to re-run ingest.ts afterwards.
  */
 
-import "dotenv/config";
+import { Index } from "@upstash/vector";
 
 async function main() {
-  console.log("🗑️  Clear index script placeholder");
-  console.log("📌 Implementation coming in Phase 3 (Day 13)");
+  const url = process.env.UPSTASH_VECTOR_REST_URL;
+  const token = process.env.UPSTASH_VECTOR_REST_TOKEN;
+
+  if (!url || !token) {
+    throw new Error("Missing UPSTASH_VECTOR_REST_URL or UPSTASH_VECTOR_REST_TOKEN in .env.local");
+  }
+
+  const vectorIndex = new Index({ url, token });
+
+  console.log("🗑️   Resetting Upstash Vector index …");
+  await vectorIndex.reset();
+  console.log("✅  Index cleared. All vectors deleted.");
+  console.log("    Re-run `pnpm run ingest` to repopulate.");
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error("\n❌  Clear failed:", err);
+  process.exit(1);
+});
